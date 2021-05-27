@@ -1,0 +1,85 @@
+.game-board{
+    display: grid;
+    grid-template-columns: repeat(7, minmax(50px, 100px));
+    grid-auto-rows: minmax(50px, 100px);
+    grid-gap: 1px;
+    justify-content: center;
+    /* padding */
+}
+.piece-holder{
+    display: grid;
+    grid-template-columns: minmax(50px, 100px);
+    grid-auto-rows: minmax(50px, 100px);
+    /* grid-gap: ; */
+}
+.p1-captured {
+    background-color: #b82a2a;
+    border: 2px solid black;
+}
+.p2-captured {
+    background-color: #b82a2a;
+    border: 2px solid black;
+}
+/* GAMEBOARD DESIGN */
+.box {
+    background-color: #b82a2a;
+    border: 2px solid black;
+}
+.water {
+    background-color: blue;
+    border: 2px solid black;
+}
+.wall-bottom {
+    background-color: #b82a2a;
+    border: 2px solid black;
+    border-bottom: 8px solid black;
+}
+.wall-top {
+    background-color: #b82a2a;
+    border: 2px solid black;
+    border-top: 8px solid black;
+}
+.wall-top-right {
+    background-color: #b82a2a;
+    border: 2px solid black;
+    border-top: 8px solid black;
+    border-right: 8px solid black; 
+}
+.wall-top-left {
+    background-color: #b82a2a;
+    border: 2px solid black;
+    border-top: 8px solid black;
+    border-left: 8px solid black; 
+}
+.wall-bottom-left {
+    background-color: #b82a2a;
+    border: 2px solid black;
+    border-bottom: 8px solid black;
+    border-left: 8px solid black;
+}
+.wall-bottom-right {
+    background-color: #b82a2a;
+    border: 2px solid black;
+    border-bottom: 8px solid black;
+    border-right: 8px solid black;
+}
+.box-left {
+    background-color: #b82a2a;
+    border: 2px solid black;
+    border-left: 8px solid black;
+}
+.box-right {
+    background-color: #b82a2a;
+    border: 2px solid black;
+    border-right: 8px solid black;
+}
+.water-left {
+    background-color: blue;
+    border: 2px solid black;
+    border-left: 8px solid black;
+}
+.water-right {
+    background-color: blue;
+    border: 2px solid black;
+    border-right: 8px solid black;
+}

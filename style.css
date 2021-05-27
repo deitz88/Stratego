@@ -13,73 +13,77 @@
     /* grid-gap: ; */
 }
 .p1-captured {
-    background-color: #b82a2a;
+    background-color: #d2b48c;
     border: 2px solid black;
 }
 .p2-captured {
-    background-color: #b82a2a;
+    background-color: #d2b48c;
     border: 2px solid black;
 }
 /* GAMEBOARD DESIGN */
 .box {
-    background-color: #b82a2a;
+    background-color: #d2b48c;
     border: 2px solid black;
 }
-.water {
-    background-color: blue;
+.water-left-middle {
+    background-image: linear-gradient(to bottom right, #96d0e0, #d4f1f9);
+    border: 2px solid black;
+}
+.water-right-middle {
+    background-image: linear-gradient(to bottom left, #96d0e0, #d4f1f9);
     border: 2px solid black;
 }
 .wall-bottom {
-    background-color: #b82a2a;
+    background-image:linear-gradient(to bottom,#d2b48c, #a89070);
     border: 2px solid black;
     border-bottom: 8px solid black;
 }
 .wall-top {
-    background-color: #b82a2a;
+    background-image:linear-gradient(to top,#d2b48c, #a89070);
     border: 2px solid black;
     border-top: 8px solid black;
 }
 .wall-top-right {
-    background-color: #b82a2a;
+    background-image:linear-gradient(to top right,#d2b48c, #a89070);
     border: 2px solid black;
     border-top: 8px solid black;
     border-right: 8px solid black; 
 }
 .wall-top-left {
-    background-color: #b82a2a;
+    background-image:linear-gradient(to top left,#d2b48c, #a89070);
     border: 2px solid black;
     border-top: 8px solid black;
     border-left: 8px solid black; 
 }
 .wall-bottom-left {
-    background-color: #b82a2a;
+    background-image:linear-gradient(to bottom left,#d2b48c, #a89070);
     border: 2px solid black;
     border-bottom: 8px solid black;
     border-left: 8px solid black;
 }
 .wall-bottom-right {
-    background-color: #b82a2a;
+    background-image:linear-gradient(to bottom right,#d2b48c, #a89070);
     border: 2px solid black;
     border-bottom: 8px solid black;
     border-right: 8px solid black;
 }
-.box-left {
-    background-color: #b82a2a;
+.wall-left {
+    background-image:linear-gradient(to left,#d2b48c, #a89070);
     border: 2px solid black;
     border-left: 8px solid black;
 }
-.box-right {
-    background-color: #b82a2a;
+.wall-right {
+    background-image:linear-gradient(to right,#d2b48c, #a89070);
     border: 2px solid black;
     border-right: 8px solid black;
 }
 .water-left {
-    background-color: blue;
+    background-image: linear-gradient(to bottom left, #96d0e0, #5cb6cf);
     border: 2px solid black;
     border-left: 8px solid black;
 }
 .water-right {
-    background-color: blue;
+    background-image: linear-gradient(to bottom right, #96d0e0, #5cb6cf);
     border: 2px solid black;
     border-right: 8px solid black;
 }

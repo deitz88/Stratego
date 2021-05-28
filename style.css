@@ -1,3 +1,17 @@
+/* button */
+ button {
+     position: absolute;
+     margin-left: 46.5%;
+     margin-top: 10%;
+     height: 4% 50px;
+     width: 6% 50px;
+     font-size: 20px;
+     font-weight: bold;
+     font-family: 'Lobster', 'sans-serif';
+     border: 2px solid black;
+     border-radius: 16px;
+     box-shadow: 6px 4px hsla(0, 0%, 33%, 0.4);
+ }
 /* PIECE HOLDER  */
 #piece-holder{
     display: grid;
@@ -13,7 +27,7 @@
 }
 
 h1 {
-    font-family: 'Lobster', cursive;
+    font-family: 'Lobster', cursive, 'sans-serif';
     font-size: 50px;
     text-align: center;
     border: 3px solid black;
@@ -22,30 +36,42 @@ h1 {
     margin: auto;
     padding: 5px;
     border-radius: 3px 25px 3px 25px;
-    box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
-    background-color: rgb(250, 218, 218);
+    box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
+    background-color: rgba(250, 218, 218, 0.85);
     }
     span {
     color: rgba(134, 24, 24, 0.616);
     text-shadow: 10px;
     letter-spacing: 2px;
 }
+h2 {
+    font-family: 'Lobster', cursive, 'sans-serif';
+    font-size: 25px;
+    text-align: center;
+    background-size: 4px 50%;
+    display: table;
+    margin: 15px auto 10px auto;
+    padding: 2px 5px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.774);
+}
+#alert {
+    font-size: 30px;
+    color: rgba(134, 24, 24, 0.8)
+}
 /* PIECE CONTAINER  */
    h3 {
         grid-area: hdr, hdr;
         font-size: 20px;
         text-align: center;
-        font-family: 'Lobster', cursive;
+        font-family: 'Lobster', cursive,'sans-serif';
         display: table;
-        margin: auto;
-        padding: 5px;
+        margin: 0px auto 8px auto;
+        padding: 7px;
         border-radius: 3px 25px 3px 25px;
-        box-shadow: 10px 5px hsla(0, 0%, 53%, 0.397);
+        box-shadow: 10px 5px hsla(0, 0%, 33%, 0.4);
         border: 3px solid black;
-        margin-top: 18px
-        /* margin: 10px; */
-
-
+        background-color: rgba(255, 255, 255, 0.842);
     }
     .p1-container {
         background-image: linear-gradient(to top left, #9ba37b, hsla(92, 18%, 45%, 0.514));
@@ -53,7 +79,7 @@ h1 {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(2, 1fr);
-        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
         border-radius: 5px 5px 5px 5px;
         grid-area: p1;
     }
@@ -65,15 +91,15 @@ h1 {
             padding: auto;
             margin: 10px;
             border: 2px solid black;
-            box-shadow: 5px 10px hsla(0, 0%, 53%, 0.397);
+            box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
         }
     .p2-container {
-        background-image: linear-gradient(to top right, #9ba37b, #71875e83);
+        background-image: linear-gradient(to top left, #9ba37b, hsla(92, 18%, 45%, 0.514));
         border: 4px solid black;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(2, 1fr);
-        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
         border-radius: 5px 5px 5px 5px;
         grid-area: p2;
     }
@@ -109,7 +135,7 @@ h1 {
         background-image:linear-gradient(to bottom,#d2b48c, #a89070);
         border: 2px solid black;
         border-bottom: 8px solid black;
-        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
         border-radius: 3px 3px 3px 3px;
     }
     .wall-top {
@@ -123,7 +149,7 @@ h1 {
         border: 2px solid black;
         border-top: 8px solid black;
         border-right: 8px solid black; 
-        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
         border-radius: 3px 15px 3px 3px;
     }
     .wall-top-left {
@@ -145,7 +171,7 @@ h1 {
         border: 2px solid black;
         border-bottom: 8px solid black;
         border-right: 8px solid black;
-        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
         border-radius: 3px 3px 50px 3px;
     }
     .wall-left {
@@ -158,7 +184,7 @@ h1 {
         background-image:linear-gradient(to right,#d2b48c, #a89070);
         border: 2px solid black;
         border-right: 8px solid black;
-        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
         border-radius: 3px 3px 3px 3px;
     }
     .water-left {
@@ -171,7 +197,7 @@ h1 {
         background-image: linear-gradient(to bottom right, #96d0e0, #5cb6cf);
         border: 2px solid black;
         border-right: 8px solid black;
-        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
         border-radius: 3px 50px 3px 3px;
     }
     .water-left-middle {
@@ -182,10 +208,10 @@ h1 {
     .water-right-middle {
         background-image: linear-gradient(to left, #96d0e0, #d4f1f9);
         border: 2px solid black;
-        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
         border-radius: 3px 3px 3px 3px;
     }
 body{
     background-image: url(imgs/background.jpg);
-    background-size: auto;
+    background-size: cover;
 }

@@ -119,6 +119,8 @@ h2 {
     display: grid;
     grid-template-columns: repeat(7, minmax(10px, 100px));
     grid-template-rows: repeat(7, minmax(10px, 100px));
+    grid-auto-columns: repeat(7, minmax(10px, 100px));
+    grid-auto-rows: repeat(7, minmax(10px, 100px));
     grid-gap: 1px;
     justify-content: center;
     margin-bottom: 5%;
@@ -130,6 +132,7 @@ h2 {
         background-color: #d2b48c;
         border: 2px solid black;
         border-radius: 3px 3px 3px 3px;
+        /* display: grid; */
     }
     .wall-bottom {
         background-image:linear-gradient(to bottom,#d2b48c, #a89070);

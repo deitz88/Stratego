@@ -13,7 +13,7 @@
      box-shadow: 6px 4px hsla(0, 0%, 33%, 0.4);
  }
 /* PIECE HOLDER  */
-#piece-holder{
+#pieceHolder{
     display: grid;
     grid-template-columns: repeat(2, minmax(25px, 289px));
     grid-template-rows: minmax(25px, 50px) minmax(25px, 150px);
@@ -73,7 +73,7 @@ h2 {
         border: 3px solid black;
         background-color: rgba(255, 255, 255, 0.842);
     }
-    .p1-container {
+    .p1Container {
         background-image: linear-gradient(to top left, #9ba37b, hsla(92, 18%, 45%, 0.514));
         border: 4px solid black;
         display: grid;
@@ -83,7 +83,7 @@ h2 {
         border-radius: 5px 5px 5px 5px;
         grid-area: p1;
     }
-        .p1-piece {
+        .p1Major {
             height: 60%;
             width: 60%;
             background-image: linear-gradient(to bottom, #80504bcb, #c9867f  );
@@ -93,7 +93,37 @@ h2 {
             border: 2px solid black;
             box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
         }
-    .p2-container {
+        #p1Captain {
+            height: 60%;
+            width: 60%;
+            background-image: linear-gradient(to bottom, #80504bcb, #c9867f  );
+            border-radius: 50%;
+            padding: auto;
+            margin: 10px;
+            border: 2px solid black;
+            box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+        }
+        #p1Flag {
+            height: 60%;
+            width: 60%;
+            background-image: linear-gradient(to bottom, #80504bcb, #c9867f  );
+            border-radius: 50%;
+            padding: auto;
+            margin: 10px;
+            border: 2px solid black;
+            box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+        }
+        #p1Bomb {
+            height: 60%;
+            width: 60%;
+            background-image: linear-gradient(to bottom, #80504bcb, #c9867f  );
+            border-radius: 50%;
+            padding: auto;
+            margin: 10px;
+            border: 2px solid black;
+            box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+        }
+    .p2Container {
         background-image: linear-gradient(to top left, #9ba37b, hsla(92, 18%, 45%, 0.514));
         border: 4px solid black;
         display: grid;
@@ -103,19 +133,49 @@ h2 {
         border-radius: 5px 5px 5px 5px;
         grid-area: p2;
     }
-        .p2-piece {
-            height: 60%;
-            width: 60%;
-            background-image: linear-gradient(to bottom, #9F9BB0, #BABBD1);
-            border-radius: 50%;
-            padding: auto;
-            margin: 10px;
-            border: 2px solid black;
-            box-shadow: 5px 10px hsla(0, 0%, 53%, 0.397);
-        }
+    .p2Major {
+        height: 60%;
+        width: 60%;
+        background-image: linear-gradient(to bottom, #80504bcb, #c9867f  );
+        border-radius: 50%;
+        padding: auto;
+        margin: 10px;
+        border: 2px solid black;
+        box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+    }
+    #p2Captain {
+        height: 60%;
+        width: 60%;
+        background-image: linear-gradient(to bottom, #80504bcb, #c9867f  );
+        border-radius: 50%;
+        padding: auto;
+        margin: 10px;
+        border: 2px solid black;
+        box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+    }
+    #p2Flag {
+        height: 60%;
+        width: 60%;
+        background-image: linear-gradient(to bottom, #80504bcb, #c9867f  );
+        border-radius: 50%;
+        padding: auto;
+        margin: 10px;
+        border: 2px solid black;
+        box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+    }
+    #p2Bomb {
+        height: 60%;
+        width: 60%;
+        background-image: linear-gradient(to bottom, #80504bcb, #c9867f  );
+        border-radius: 50%;
+        padding: auto;
+        margin: 10px;
+        border: 2px solid black;
+        box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+    }
 
 /* GAMEBOARD DESIGN */
-#game-board{
+#gameBoard{
     display: grid;
     grid-template-columns: repeat(7, minmax(10px, 100px));
     grid-template-rows: repeat(7, minmax(10px, 100px));
@@ -215,6 +275,6 @@ h2 {
         border-radius: 3px 3px 3px 3px;
     }
 body{
-    background-image: url(imgs/background.jpg);
+    background-image: url(/imgs/background.jpg);
     background-size: cover;
 }

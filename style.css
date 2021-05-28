@@ -1,24 +1,61 @@
 /* PIECE HOLDER  */
 #piece-holder{
     display: grid;
-    grid-template-columns: repeat(2, minmax(50px, 289px));
-    grid-template-rows: repeat(2, minmax(25px, 150px));
+    grid-template-columns: repeat(2, minmax(25px, 289px));
+    grid-template-rows: minmax(25px, 50px) minmax(25px, 150px);
     grid-column-gap: 10%;
     grid-row-gap: 10%;
     justify-content: center;
-    grid-column-start: inherit;
     margin-bottom: 5%;
+    grid-template-areas: 
+                "hdr hdr"
+                "p1 p2";
+}
 
+h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 50px;
+    text-align: center;
+    border: 3px solid black;
+    background-size: 4px 50%;
+    display: table;
+    margin: auto;
+    padding: 5px;
+    border-radius: 3px 25px 3px 25px;
+    box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+    background-color: rgb(250, 218, 218);
+    }
+    span {
+    color: rgba(134, 24, 24, 0.616);
+    text-shadow: 10px;
+    letter-spacing: 2px;
 }
 /* PIECE CONTAINER  */
+   h3 {
+        grid-area: hdr, hdr;
+        font-size: 20px;
+        text-align: center;
+        font-family: 'Lobster', cursive;
+        display: table;
+        margin: auto;
+        padding: 5px;
+        border-radius: 3px 25px 3px 25px;
+        box-shadow: 10px 5px hsla(0, 0%, 53%, 0.397);
+        border: 3px solid black;
+        margin-top: 18px
+        /* margin: 10px; */
+
+
+    }
     .p1-container {
         background-image: linear-gradient(to top left, #9ba37b, hsla(92, 18%, 45%, 0.514));
         border: 4px solid black;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(2, 1fr);
-        box-shadow: 5px 10px hsla(0, 0%, 53%, 0.397);
         box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        border-radius: 5px 5px 5px 5px;
+        grid-area: p1;
     }
         .p1-piece {
             height: 60%;
@@ -31,12 +68,14 @@
             box-shadow: 5px 10px hsla(0, 0%, 53%, 0.397);
         }
     .p2-container {
-        background-image: linear-gradient(to top right, #9ba37b, hsla(92, 18%, 45%, 0.514));
+        background-image: linear-gradient(to top right, #9ba37b, #71875e83);
         border: 4px solid black;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(2, 1fr);
         box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        border-radius: 5px 5px 5px 5px;
+        grid-area: p2;
     }
         .p2-piece {
             height: 60%;
@@ -64,26 +103,20 @@
     .box {
         background-color: #d2b48c;
         border: 2px solid black;
-    }
-    .water-left-middle {
-        background-image: linear-gradient(to right, #96d0e0, #d4f1f9);
-        border: 2px solid black;
-    }
-    .water-right-middle {
-        background-image: linear-gradient(to left, #96d0e0, #d4f1f9);
-        border: 2px solid black;
-        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        border-radius: 3px 3px 3px 3px;
     }
     .wall-bottom {
         background-image:linear-gradient(to bottom,#d2b48c, #a89070);
         border: 2px solid black;
         border-bottom: 8px solid black;
         box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        border-radius: 3px 3px 3px 3px;
     }
     .wall-top {
         background-image:linear-gradient(to top,#d2b48c, #a89070);
         border: 2px solid black;
         border-top: 8px solid black;
+        border-radius: 3px 3px 3px 3px;
     }
     .wall-top-right {
         background-image:linear-gradient(to top right,#d2b48c, #a89070);
@@ -91,18 +124,21 @@
         border-top: 8px solid black;
         border-right: 8px solid black; 
         box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        border-radius: 3px 15px 3px 3px;
     }
     .wall-top-left {
         background-image:linear-gradient(to top left,#d2b48c, #a89070);
         border: 2px solid black;
         border-top: 8px solid black;
         border-left: 8px solid black; 
+        border-radius: 50px 3px 3px 3px;
     }
     .wall-bottom-left {
         background-image:linear-gradient(to bottom left,#d2b48c, #a89070);
         border: 2px solid black;
         border-bottom: 8px solid black;
         border-left: 8px solid black;
+        border-radius: 3px 3px 3px 15px;
     }
     .wall-bottom-right {
         background-image:linear-gradient(to bottom right,#d2b48c, #a89070);
@@ -110,26 +146,46 @@
         border-bottom: 8px solid black;
         border-right: 8px solid black;
         box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        border-radius: 3px 3px 50px 3px;
     }
     .wall-left {
         background-image:linear-gradient(to left,#d2b48c, #a89070);
         border: 2px solid black;
         border-left: 8px solid black;
+        border-radius: 3px 3px 3px 3px;
     }
     .wall-right {
         background-image:linear-gradient(to right,#d2b48c, #a89070);
         border: 2px solid black;
         border-right: 8px solid black;
         box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        border-radius: 3px 3px 3px 3px;
     }
     .water-left {
         background-image: linear-gradient(to bottom left, #96d0e0, #5cb6cf);
         border: 2px solid black;
         border-left: 8px solid black;
+        border-radius: 3px 3px 3px 50px;
     }
     .water-right {
         background-image: linear-gradient(to bottom right, #96d0e0, #5cb6cf);
         border: 2px solid black;
         border-right: 8px solid black;
         box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        border-radius: 3px 50px 3px 3px;
     }
+    .water-left-middle {
+        background-image: linear-gradient(to right, #96d0e0, #d4f1f9);
+        border: 2px solid black;
+        border-radius: 3px 3px 3px 3px;
+    }
+    .water-right-middle {
+        background-image: linear-gradient(to left, #96d0e0, #d4f1f9);
+        border: 2px solid black;
+        box-shadow: 15px 10px hsla(0, 0%, 53%, 0.397);
+        border-radius: 3px 3px 3px 3px;
+    }
+body{
+    background-image: url(imgs/background.jpg);
+    background-size: auto;
+}

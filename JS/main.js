@@ -34,7 +34,14 @@ boardEl = [
     [0, 0, 0, 0, 0, 0, 0],  // Column 5
     [0, 0, 0, 0, 0, 0, 0],  // Column 6
   ];
-
+  for(i=0; i<boardEl.length; i++){
+    for(j=0; j<boardEl.length; j++){
+      if(p1Major)
+        if(boardEl[i][j] !== 0){
+  console.log('taken!');
+      }
+  }
+}
 // // const p1CreateMajor = document.createElement('div')
 // //                         .setAttribute('class', 'p1Major');
 // // const p2CreateMajor = document.createElement('div')
@@ -105,21 +112,23 @@ boardEl = [
 // // functions
 const init = function(){
     playerOneStart();
-//     playerTwoStart();
-    appendP1();
-    // appendP2();
-//     // defineBoard();
+    playerTwoStart();
 }
 const playerOneStart = function(){
    createP1Captain= document.createElement('div');
         createP1Captain.setAttribute('id', 'p1Captain');
+        p1Cont.appendChild(createP1Captain)
     createP1Bomb = document.createElement('div');
         createP1Bomb.setAttribute('id', 'p1Bomb');
+        p1Cont.appendChild(createP1Bomb)
      createP1Flag = document.createElement('div');
         createP1Flag.setAttribute('id', 'p1Flag');
-    for(i=0; i<6; i++){
+        p1Cont.appendChild(createP1Flag)
+    for(i=0; i<7; i++){
         createP1Major = document.createElement('div');
         createP1Major.setAttribute('class', 'p1Major');
+        createP1Major.setAttribute('id', 'p1M'+[i])
+        p1Cont.appendChild(createP1Major)
     };
     console.log('creating p1 pieces')
 };
@@ -127,92 +136,47 @@ const playerOneStart = function(){
 const playerTwoStart = function(){
      createP2Captain= document.createElement('div');
         createP2Captain.setAttribute('id', 'p2Captain');
+        p2Cont.appendChild(createP2Captain)
      createP2Bomb = document.createElement('div');
         createP2Bomb.setAttribute('id', 'p2Bomb');
+        p2Cont.appendChild(createP2Bomb)
      createP2Flag = document.createElement('div');
         createP2Flag.setAttribute('id', 'p2Flag');
-    for(i=0; i<6; i++){
-        createP2Major = document.createElement('div')
-        createP2Major.setAttribute('class', 'p2Major')
-    };
-};
-
-const appendP1 = function(){
-    for(i=0; i<6; i++){
-        p1Cont.appendChild(createP1Major);
-    }
-        p1Cont.append(createP1Flag)
-        p1Cont.append(createP1Bomb)
-        p1Cont.append(createP1Captain)
+        p2Cont.appendChild(createP2Flag)
+        for(i=0; i<7; i++){
+            createP2Major = document.createElement('div');
+            createP2Major.setAttribute('class', 'p2Major');
+            createP2Major.setAttribute('id', 'p2M'+[i])
+            p2Cont.appendChild(createP2Major)
+        };   
 }
-// const appendP2 = function(){
-//     for(i=0; i<6; i++){
-//         p2Cont.append(createP2Major);
-//     // p1Cont.append(p1Major);
-//     }
-//         p2Cont.append(createP2Flag)
-//         p2Cont.append(createP2Bomb)
-//         p2Cont.append(createP2Captain)
-// }
-// // const defineBoard = function(){
-// //     for(i)
-// // }
 init();
 
 // // event listeners 
 
 // event listeners 
 
-// // const btn = document.querySelector("body > button")
-// // btn.addEventListener('click', begin())
-
-// // function begin(){
-// //     console.log('hello!');
-// // }
-
-// board array to logically represent the squares
-// const grid = new Array(7);
-// const boardFiles = {
-//     0: 'a',
-//     1: 'b',
-//     2: 'c',
-//     3: 'd',
-//     4: 'e',
-//     5: 'f',
-//     6: 'g',
-//     7: 'h'
-// }
-// // create 2D array with square notation for each element
-// for (let i=0; i<grid.length; i++) {
-//     grid[i] = new Array(7);
-//     for (let j=0; j<grid.length; j++) {
-//         grid[i][j] = boardFiles[i] + String(j+1);
-//     }
-// }
-// function defineBoard() {
-//     for (let i=0; i<7; i++) {
-//         for (let j=0; j<7; j++) {
-//             // let square = document.createElement('div');
-//         let square = document.querySelectorAll("#gameBoard > div");
-//             square.setAttribute('id', grid[i][j]);
-//             boardEl.appendChild(square);
-//         }
-//     }
-// }
-
-// defineBoard();
-
-for(i=0; i<boardEl.length; i++){
-    for(j=0; j<boardEl.length; j++){
-      if(p1Major)
-        if(boardEl[i][j] !== 0){
-  console.log('taken!');
-      }
-  }
+move = function(char, space) {
+    document.getElementById(char)
+    document.getElementById(space).append(document.getElementById(char))
+    // console.log('moved');
 }
 
-// move = function() {
-//     document.getElementById('p1Captain')
-//     document.getElementById('a6').appendChild(document.getElementById('p1Captain'))
-//     // console.log('moved');
+// idEl = [
+//     ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'],  // Column 0
+//     ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7'],  // Column 1
+//     ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'],  // Column 2
+//     ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7'],  // Column 3
+//     ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'e7'],  // Column 4
+//     ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7'],  // Column 5
+//     ['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7'],  // Column 6
+//   ];
+//   for(i=0; i<idEl.length; i++){
+//     for(j=0; j<idEl.length; j++){
+//         document.querySelector("#gameBoard" > 'div')
+//         if(boardEl[i][j] !== 0){
+//   console.log('taken!');
+//       }
+//   }
 // }
+// defineBoard();

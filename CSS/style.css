@@ -1,4 +1,4 @@
-/* button */
+/* button's */
  button {
      position: absolute;
      display: inline;
@@ -14,6 +14,26 @@
      box-shadow: 6px 4px hsla(0, 0%, 33%, 0.4);
      grid-area: "btn";
  }
+ #close{
+    position:relative;
+    margin-top: 5px;
+    margin-left: 50vh;
+}
+#rulesBtn{
+    position: absolute;
+    display: none;
+    margin-left: 46.5%;
+    margin-top: 10%;
+    height: 4% 50px;
+    width: 6% 50px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Lobster', 'sans-serif';
+    border: 2px solid black;
+    border-radius: 16px;
+    box-shadow: 6px 4px hsla(0, 0%, 33%, 0.4);
+    grid-area: "btn";
+}
  /* Beginning Message */
  #rules {
     font-family: 'Mate SC', serif;

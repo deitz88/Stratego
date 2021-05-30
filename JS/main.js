@@ -129,8 +129,6 @@ const render = function(){
 const init = function(){
     playerOneStart();
     playerTwoStart();
-    // const getP1Name = prompt('Player 1, what is your name?');
-    // const getP2Name = prompt('Player 2, what is your name?');
     render();
 }
 const playerOneStart = function(){
@@ -168,7 +166,7 @@ const playerTwoStart = function(){
             createP2Major.setAttribute('id', 'p2M'+[i])
             p2Cont.appendChild(createP2Major)
         };   
-}
+};
 const styleGame = function(){
     startGame.style.display = 'none';
     p1Cont.style.display = 'grid';
@@ -181,15 +179,37 @@ const styleGame = function(){
     p1Name.style.margin = '0px auto 8px auto';
     p2Name.style.margin = '0px auto 8px auto';
     rules.style.display = 'none';
-
+    rulesBtn.style.display = 'inline';
+};
+const rulesRend = function(){
+    p1Cont.style.display = 'none';
+    p2Cont.style.display = 'none';
+    msgEl.style.display = 'none';
+    timerEl.style.display = 'none';
+    boardObj.style.display = 'none';
+    rules.style.display = 'table';
+};
+const closeRules = function() {
+    p1Cont.style.display = 'grid';
+    p2Cont.style.display = 'grid';
+    msgEl.style.display = 'table';
+    timerEl.style.display = 'table';
+    boardObj.style.display = 'grid';
+    rules.style.display = 'none';
 }
-// init();
 
 // // event listeners 
 
 // event listeners 
 const startGame = document.querySelector("#start");
 startGame.addEventListener('click', init);
+// const startGame = document.querySelector("#rules");
+// startGame.addEventListener('click', rules);
+const rulesBtnEl = document.querySelector("#rulesBtn");
+rulesBtnEl.addEventListener('click', rulesRend);
+const closeRulesEl = document.querySelector("#close")
+closeRulesEl.addEventListener('click', closeRules)
+
 
 move = function(char, space) {
     document.getElementById(char)

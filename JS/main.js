@@ -13,18 +13,30 @@
 //     7 2
 // const p1;
 // const p2;
+const closePopup = document.getElementById("popupclose");
+const overlay = document.getElementById("overlay");
+const popup = document.getElementById("popup");
+
 const boardObj = document.querySelector("#gameBoard");
 const p1Cont = document.querySelector("#pieceHolder > div.p1Container")
 const p2Cont = document.querySelector("#pieceHolder > div.p2Container")
+
 const p1Major = document.getElementsByClassName('p1Major');
 const p1Captain = document.getElementById('p1Captain');
 const p1Flag = document.getElementById('p1Flag');
-const p1Bomb = document.getElementById('p1Bomb');
+const p1Bomb = document.querySelector('#p1Bomb');
 
 const p2Major = document.getElementsByClassName('p2Major');
 const p2Captain = document.getElementById('p2Captain');
 const p2Flag = document.getElementById('p2Flag');
 const p2Bomb = document.getElementById('p2Bomb');
+
+const msgEl = document.querySelector("body > div.container > h2.msg")
+const timerEl = document.querySelector("#alert")
+
+const p1Name = document.querySelector("#pieceHolder > h3.p1Header")
+const p2Name = document.querySelector("#pieceHolder > h3.p2Header")
+const rules = document.querySelector("#rules");
 boardEl = [
     [0, 0, 0, 0, 0, 0, 0],  // Column 0
     [0, 0, 0, 0, 0, 0, 0],  // Column 1
@@ -39,7 +51,7 @@ boardEl = [
       if(p1Major)
         if(boardEl[i][j] !== 0){
   console.log('taken!');
-      }
+      } 
   }
 }
 // // const p1CreateMajor = document.createElement('div')
@@ -104,6 +116,10 @@ boardEl = [
 //         // 'taken'
 
 // //          render          //
+const render = function(){
+    styleGame();
+    // p1Name = prompt('Player 1, what is your name?');
+}
 
 // // display moved piece
 // // change msg on board for next player
@@ -113,11 +129,14 @@ boardEl = [
 const init = function(){
     playerOneStart();
     playerTwoStart();
+    // const getP1Name = prompt('Player 1, what is your name?');
+    // const getP2Name = prompt('Player 2, what is your name?');
+    render();
 }
 const playerOneStart = function(){
    createP1Captain= document.createElement('div');
         createP1Captain.setAttribute('id', 'p1Captain');
-        p1Cont.appendChild(createP1Captain)
+        p1Cont.appendChild(createP1Captain);
     createP1Bomb = document.createElement('div');
         createP1Bomb.setAttribute('id', 'p1Bomb');
         p1Cont.appendChild(createP1Bomb)
@@ -150,18 +169,33 @@ const playerTwoStart = function(){
             p2Cont.appendChild(createP2Major)
         };   
 }
-init();
+const styleGame = function(){
+    startGame.style.display = 'none';
+    p1Cont.style.display = 'grid';
+    p2Cont.style.display = 'grid';
+    msgEl.style.display = 'table';
+    timerEl.style.display = 'table';
+    boardObj.style.display = 'grid';
+    p1Name.innerText = prompt('Player 1, what is your name?');
+    p2Name.innerText = prompt('Player 2, what is your name?')
+    p1Name.style.margin = '0px auto 8px auto';
+    p2Name.style.margin = '0px auto 8px auto';
+    rules.style.display = 'none';
+
+}
+// init();
 
 // // event listeners 
 
 // event listeners 
+const startGame = document.querySelector("#start");
+startGame.addEventListener('click', init);
 
 move = function(char, space) {
     document.getElementById(char)
     document.getElementById(space).append(document.getElementById(char))
     // console.log('moved');
 }
-
 // idEl = [
 //     ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'],  // Column 0
 //     ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7'],  // Column 1

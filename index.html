@@ -16,48 +16,38 @@
 
 <div class="container">   ​
         <h1>Welcome to <span>Stratego:</span><br>A Strategy-Based Game</h1>
+        <div id="rules">
+            <button id="close">X</button>
+               <p>The objective is to collect the opponents <span class='pieceName'>flag!</span></br></br>
+               Rules:</br>
+               - Each player will have a <span class='pieceName'>1 Flag, 1 Bomb, 1 Captan, and 7 Major</span> pieces.</br>
+               <span class='pieceName'>Bombs</span> and <span class='pieceName'>Flags</span> are fixed and cannot be moved once placed.</br>
+               - Each player can move one piece per turn, 1 space in any direction, as long as the space is not occupied.</br>
+               - The 4 <span id='water'>Water</span> squares can never be occupied.</br>
+               - If a piece is occupied by another players piece, you may click on it to '<span class='special'>challenge</span>' it.</br>
+               - <span class='pieceName'>Captains</span> have the highest value, followed by <span class='pieceName'>Majors</span>.</br>
+               - <span class='pieceName'>Captains</span> will beat <span class='pieceName'>Majors</span>.</br>
+               - If both pieces are the same, both will die.</br>
+               - <span class='pieceName'>Bombs</span> will kill any piece that come into contact with it.</br>
+               - If you capture the other players <span class='pieceName'>flag</span>, you win!</br>
+               - If, in a rare turn of events, both players have no pieces left - the game will end in a draw</br>
+               - When ready to test your skills, press start to initiate the game.</br>
+               </br>
+               Good Luck, <span class='special'>Commander</span>.</br>
+                </p>
+                <button id='start'>Start!</button>
+        </div>
         <h2 class=msg>message goes here!</h2>
         <h2 id=alert>countdown timer</h2>
-        <button id='start'>Start!</button>
         <button id='rulesBtn'>rules</button>
     </div>    
 <div id="pieceHolder">
     <h3 class="p1Header">Player 1</h3>
-    <div class="p1Container">
-        <!-- <div id="p1Captain"></div><div id="p1Bomb"></div>
-        <div id="p1Flag"></div><div class="p1Major"></div>
-        <div class="p1Major"></div><div class="p1Major"></div>
-        <div class="p1Major"></div><div class="p1Major"></div>
-        <div class="p1Major"></div><div class="p1Major"></div> -->
-            </div>
+    <div class="p1Container"> </div>
             <h3 class="p2Header">Player 2</h3>
-    <div class="p2Container">
-        <!-- <div id="p2Captain"></div><div id="p2Bomb"></div>
-        <div id="p2Flag"></div><div class="p2Major"></div>
-        <div class="p2Major"></div><div class="p2Major"></div>
-        <div class="p2Major"></div><div class="p2Major"></div>
-        <div class="p2Major"></div><div class="p2Major"></div> -->
-            </div>
+    <div class="p2Container"> </div>
     </div>
-    <div id="rules">
-        <button id="close">X</button>
-        <p>Rules:</br>
-           The objective is to collect the opponents <span class='pieceName'>flag!</span></br>
-           Each player will have a <span class='pieceName'>1 Flag, 1 Bomb, 1 Captan, and 7 Major</span> pieces.</br>
-           <span class='pieceName'>Bombs</span> and <span class='pieceName'>Flags</span> are fixed and cannot be moved once placed.</br>
-           Each player can move one piece per turn, 1 space in any direction, as long as the space is not occupied.</br>
-           The 4 <span id='water'>Water</span> squares can never be occupied.
-           If a piece is occupied by another players piece, you may click on it to '<span class='special'>challenge</span>' it.</br>
-           <span class='pieceName'>Captains</span> have the highest value, followed by <span class='pieceName'>Majors</span>.</br>
-           <span class='pieceName'>Captains</span> will beat <span class='pieceName'>Majors</span>.</br>
-           If both pieces are the same, both will die.</br>
-           <span class='pieceName'>Bombs</span> will kill any piece that come into contact with it.</br>
-           If you capture the other players <span class='pieceName'>flag</span>, you win!</br>
-           If, in a rare turn of events, both players have no pieces left - the game will end in a draw</br>
-           When ready to test your skills, press start to initiate the game.</br>
-           Good Luck, <span class='special'>Commander</span>.</br>
-            </p>
-    </div>
+   
     <div id="gameBoard">
         <div class="wall-top-left"id='a1'></div><div class="wall-top"id='a2'></div>
         <div class="wall-top"id='a3'></div><div class="wall-top"id='a4'></div>
@@ -99,7 +89,7 @@
         <div class="wall-bottom-right"></div>
         
     </div>
-    
+<button id='reset'>Reset Game</button>
     
 </body>
 </html>

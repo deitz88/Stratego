@@ -24,7 +24,7 @@ const p2Cont = document.querySelector("#pieceHolder > div.p2Container")
 const p1Major = document.getElementsByClassName('p1Major');
 const p1Captain = document.getElementById('p1Captain');
 const p1Flag = document.getElementById('p1Flag');
-const p1Bomb = document.querySelector('#p1Bomb');
+const p1Bomb = document.querySelector("#p1Bomb");
 
 const p2Major = document.getElementsByClassName('p2Major');
 const p2Captain = document.getElementById('p2Captain');
@@ -37,20 +37,21 @@ const timerEl = document.querySelector("#alert")
 const p1Name = document.querySelector("#pieceHolder > h3.p1Header")
 const p2Name = document.querySelector("#pieceHolder > h3.p2Header")
 const rules = document.querySelector("#rules");
+const reset = document.querySelector("#reset");
 boardEl = [
-    [0, 0, 0, 0, 0, 0, 0],  // Column 0
+    [0, 0, 0, 3, 0, 0, 0],  // Column 0
     [0, 0, 0, 0, 0, 0, 0],  // Column 1
     [0, 0, 0, 0, 0, 0, 0],  // Column 2
-    [0, 0, 0, 0, 0, 0, 0],  // Column 3
-    [0, 0, 0, 0, 5, 0, 0],  // Column 4
-    [0, 0, 0, 0, 0, 0, 0],  // Column 5
+    [0, 0, 0, 3, 0, 0, 0],  // Column 3
+    [0, 0, 0, 0, 0, 0, 0],  // Column 4
+    [0, 10, 0, 0, 0, 5, 0],  // Column 5
     [0, 0, 0, 0, 0, 0, 0],  // Column 6
   ];
   for(i=0; i<boardEl.length; i++){
     for(j=0; j<boardEl.length; j++){
       if(p1Major)
         if(boardEl[i][j] !== 0){
-  console.log('taken!');
+  console.log('taken! ' +[i],[j] + ' value is ' +boardEl[i][j]);
       } 
   }
 }
@@ -105,7 +106,6 @@ boardEl = [
 
 
 
-
 // //          cashed elements    //
 
 // // player 1 pieces 
@@ -120,7 +120,10 @@ const render = function(){
     styleGame();
     // p1Name = prompt('Player 1, what is your name?');
 }
-
+const resetGame = function(){
+    styleGame();
+    resetPieces();
+}
 // // display moved piece
 // // change msg on board for next player
 
@@ -132,38 +135,45 @@ const init = function(){
     render();
 }
 const playerOneStart = function(){
-   createP1Captain= document.createElement('div');
-        createP1Captain.setAttribute('id', 'p1Captain');
-        p1Cont.appendChild(createP1Captain);
+    createP1Captain= document.createElement('div');
+       createP1Captain.setAttribute('id', 'p1Captain');
+       createP1Captain.innerText = 'C';
+       p1Cont.appendChild(createP1Captain)
     createP1Bomb = document.createElement('div');
-        createP1Bomb.setAttribute('id', 'p1Bomb');
-        p1Cont.appendChild(createP1Bomb)
-     createP1Flag = document.createElement('div');
-        createP1Flag.setAttribute('id', 'p1Flag');
-        p1Cont.appendChild(createP1Flag)
-    for(i=0; i<7; i++){
-        createP1Major = document.createElement('div');
-        createP1Major.setAttribute('class', 'p1Major');
-        createP1Major.setAttribute('id', 'p1M'+[i])
-        p1Cont.appendChild(createP1Major)
-    };
-    console.log('creating p1 pieces')
+       createP1Bomb.setAttribute('id', 'p1Bomb');
+       createP1Bomb.innerText = 'B';
+       p1Cont.appendChild(createP1Bomb)
+    createP1Flag = document.createElement('div');
+       createP1Flag.setAttribute('id', 'p1Flag');
+       createP1Flag.innerText = 'F';
+       p1Cont.appendChild(createP1Flag)
+       for(i=0; i<7; i++){
+           createP1Major = document.createElement('div');
+           createP1Major.setAttribute('class', 'p1Major');
+           createP1Major.setAttribute('id', 'p1M'+[i])
+           createP1Major.innerText = 'M';
+           p1Cont.appendChild(createP1Major)
+       };   
 };
 
 const playerTwoStart = function(){
      createP2Captain= document.createElement('div');
         createP2Captain.setAttribute('id', 'p2Captain');
+        createP2Captain.innerText = 'C';
         p2Cont.appendChild(createP2Captain)
      createP2Bomb = document.createElement('div');
         createP2Bomb.setAttribute('id', 'p2Bomb');
+        createP2Bomb.innerText = 'B';
         p2Cont.appendChild(createP2Bomb)
      createP2Flag = document.createElement('div');
         createP2Flag.setAttribute('id', 'p2Flag');
+        createP2Flag.innerText = 'F';
         p2Cont.appendChild(createP2Flag)
         for(i=0; i<7; i++){
             createP2Major = document.createElement('div');
             createP2Major.setAttribute('class', 'p2Major');
             createP2Major.setAttribute('id', 'p2M'+[i])
+            createP2Major.innerText = 'M';
             p2Cont.appendChild(createP2Major)
         };   
 };
@@ -174,12 +184,15 @@ const styleGame = function(){
     msgEl.style.display = 'table';
     timerEl.style.display = 'table';
     boardObj.style.display = 'grid';
-    p1Name.innerText = prompt('Player 1, what is your name?');
-    p2Name.innerText = prompt('Player 2, what is your name?')
+    p1Name.innerText = prompt('First Commander, what is your name?');
+    p2Name.innerText = prompt('Second Commander, what is your name?')
     p1Name.style.margin = '0px auto 8px auto';
     p2Name.style.margin = '0px auto 8px auto';
+    p1Name.style.display = 'table';
+    p2Name.style.display = 'table';
     rules.style.display = 'none';
     rulesBtn.style.display = 'inline';
+    reset.style.display = 'table';
 };
 const rulesRend = function(){
     p1Cont.style.display = 'none';
@@ -188,6 +201,11 @@ const rulesRend = function(){
     timerEl.style.display = 'none';
     boardObj.style.display = 'none';
     rules.style.display = 'table';
+    rulesBtn.style.display = 'none';
+    p1Name.style.display = "none";
+    p2Name.style.display = "none";
+    closeRulesEl.style.display = 'inline-block';
+    reset.style.display = 'none';
 };
 const closeRules = function() {
     p1Cont.style.display = 'grid';
@@ -196,6 +214,30 @@ const closeRules = function() {
     timerEl.style.display = 'table';
     boardObj.style.display = 'grid';
     rules.style.display = 'none';
+    rulesBtn.style.display = 'inline';
+    p1Name.style.display = 'table';
+    p2Name.style.display = 'table';
+    reset.style.display = 'table';
+}
+const resetPieces = function(){
+    p1Cont.appendChild(createP1Bomb);
+    p1Cont.appendChild(createP1Flag);
+    p1Cont.appendChild(createP1Captain);
+    for(i=0; i<7; i++){
+        p1Cont.appendChild(createP1Major)
+    }
+    p2Cont.appendChild(createP2Bomb);
+    p2Cont.appendChild(createP2Flag);
+    p2Cont.appendChild(createP2Captain);
+    for(i=0; i<7; i++){
+        p2Cont.appendChild(createP2Major)
+    }
+}
+const confirmReset = function() {
+    let e = confirm('Are You Sure You Want To Reset?');
+    if(e === true){
+        resetPieces();
+    }
 }
 
 // // event listeners 
@@ -203,12 +245,11 @@ const closeRules = function() {
 // event listeners 
 const startGame = document.querySelector("#start");
 startGame.addEventListener('click', init);
-// const startGame = document.querySelector("#rules");
-// startGame.addEventListener('click', rules);
 const rulesBtnEl = document.querySelector("#rulesBtn");
 rulesBtnEl.addEventListener('click', rulesRend);
 const closeRulesEl = document.querySelector("#close")
 closeRulesEl.addEventListener('click', closeRules)
+reset.addEventListener('click', confirmReset);
 
 
 move = function(char, space) {

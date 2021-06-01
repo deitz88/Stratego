@@ -49,21 +49,14 @@ const reset = document.querySelector("#reset");
 let clickedEl = null;
 boardEl = [
     [0, 0, 0, 0, 0, 0, 0],  // Column 0
-    [0, 0, 0, 0, 0, 0, 0],  // Column 1
+    [0, 0, 3, 0, 0, 0, 0],  // Column 1
     [0, 0, 0, 0, 0, 0, 0],  // Column 2
     [0, 0, 0, 0, 0, 0, 0],  // Column 3
-    [0, 0, 0, 0, 0, 0, 0],  // Column 4
+    [0, 0, 0, 100, 0, 0, 0],  // Column 4
     [0, 0, 0, 0, 0, 0, 0],  // Column 5
     [0, 0, 0, 0, 0, 0, 0],  // Column 6
   ];
-  for(i=0; i<boardEl.length; i++){
-    for(j=0; j<boardEl.length; j++){
-      if(p1Major)
-        if(boardEl[i][j] !== 0){ //do this if 0 //else if do this if 2//
-  console.log('taken! ' +[i],[j] + ' value is ' +boardEl[i][j]);
-      } 
-  }
-}
+  
 
 // //          state            //
 
@@ -81,8 +74,28 @@ boardEl = [
 //         // 'taken'
 
 // //          render          //
-const render = function(){ //put these in init
 
+boardEl.forEach(function(i, j) {
+    // Iterate over the col array to access the cell vals
+    colArr.forEach(function(cellVal, rowIdx) {
+      // Select the correct div for this cellVal
+      const div = document.getElementById(`c${colIdx}r${rowIdx}`);
+      div.style.backgroundColor = colorLookup[cellVal];
+    });
+    // <conditional expression> ? <truthy val> : <falsey val>;
+    markerEls[colIdx].style.visibility = colArr.includes(0) ? 'visible' : 'hidden';
+    console.log('available' + board[i][j])
+  });
+
+
+const render = function(){ //put these in init
+    for(i=0; i<boardEl.length; i++){
+        for(j=0; j<boardEl.length; j++){
+            if(boardEl[i][j] !== 0){ //do this if 0 //else if do this if 2//
+      console.log('taken! ' +[i],[j] + ' value is ' +boardEl[i][j]);
+          } 
+      }
+    }
 
 
 // do loop thingy here of board Array, 
@@ -101,7 +114,7 @@ const resetGame = function(){
 
 // // functions
 function playerOneSetup(){
-    countdown(2);
+    // countdown(2);
     currentPlayer = p1Name;
     notPlayer = p2Name;
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
@@ -227,19 +240,19 @@ const closeRules = function() {
     reset.style.display = 'table';
 }
 const resetPieces = function(){
-    // p1Cont.appendChild(createP1Bomb);
-    // p1Cont.appendChild(createP1Flag);
-    // p1Cont.appendChild(createP1Captain);
-    //     for(i=0; i<7; i++){
-    //     p1Cont.appendChild(createP1Major)
-    // }
-    // p2Cont.appendChild(createP2Bomb);
-    // p2Cont.appendChild(createP2Flag);
-    // p2Cont.appendChild(createP2Captain);
-    //     for(i=0; i<7; i++){
-    //     p2Cont.appendChild(createP2Major)
-    // }
-    // playerOneSetup();
+    p1Cont.appendChild(createP1Bomb);
+    p1Cont.appendChild(createP1Flag);
+    p1Cont.appendChild(createP1Captain);
+        for(i=0; i<7; i++){
+        p1Cont.appendChild(createP1Major)
+    }
+    p2Cont.appendChild(createP2Bomb);
+    p2Cont.appendChild(createP2Flag);
+    p2Cont.appendChild(createP2Captain);
+        for(i=0; i<7; i++){
+        p2Cont.appendChild(createP2Major)
+    }
+    playerOneSetup();
 }
 const confirmReset = function() {
     let e = confirm('Are You Sure You Want To Reset?');
@@ -304,12 +317,13 @@ function move(char, space) {
 //         text = target.textContent || target.innerText;   
 // }, false);
 document.querySelector("#clickContainer").addEventListener('click', function(e){
-if(clickedEl === null && clickedEl !== p1Cont && clickedEl !== p2Cont && clickedEl !== boardObj){
+if(clickedEl === null && e.target === p1M2){
     clickedEl = e.target;
     }else{
         console.log(e.target.id)
        move(clickedEl.id, e.target.id)
        clickedEl = null;
+       updateArray();
     }
 });
 

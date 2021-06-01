@@ -1,6 +1,14 @@
 //         constants          //          
 // gameboard div
 
+
+//letters = this value below:
+
+
+
+// hardcode column and row
+
+
 // p1 pieces
 //     1 flag
 //     1 1
@@ -32,78 +40,35 @@ const p2Flag = document.getElementById('p2Flag');
 const p2Bomb = document.getElementById('p2Bomb');
 
 const msgEl = document.querySelector("body > div.container > h2.msg")
-const timerEl = document.querySelector("#alert")
+const timerEl = document.querySelector("#countdown")
 
 const p1Name = document.querySelector("#pieceHolder > h3.p1Header")
 const p2Name = document.querySelector("#pieceHolder > h3.p2Header")
 const rules = document.querySelector("#rules");
 const reset = document.querySelector("#reset");
+let clickedEl = null;
 boardEl = [
-    [0, 0, 0, 3, 0, 0, 0],  // Column 0
+    [0, 0, 0, 0, 0, 0, 0],  // Column 0
     [0, 0, 0, 0, 0, 0, 0],  // Column 1
     [0, 0, 0, 0, 0, 0, 0],  // Column 2
-    [0, 0, 0, 3, 0, 0, 0],  // Column 3
+    [0, 0, 0, 0, 0, 0, 0],  // Column 3
     [0, 0, 0, 0, 0, 0, 0],  // Column 4
-    [0, 10, 0, 0, 0, 5, 0],  // Column 5
+    [0, 0, 0, 0, 0, 0, 0],  // Column 5
     [0, 0, 0, 0, 0, 0, 0],  // Column 6
   ];
   for(i=0; i<boardEl.length; i++){
     for(j=0; j<boardEl.length; j++){
       if(p1Major)
-        if(boardEl[i][j] !== 0){
+        if(boardEl[i][j] !== 0){ //do this if 0 //else if do this if 2//
   console.log('taken! ' +[i],[j] + ' value is ' +boardEl[i][j]);
       } 
   }
 }
-// // const p1CreateMajor = document.createElement('div')
-// //                         .setAttribute('class', 'p1Major');
-// // const p2CreateMajor = document.createElement('div')
-// //                         .setAttribute('class', 'p2Major');
-// // const p2CreateCaptain = document.createElement('div')
-// //                         .setAttribute('class', 'p1Captain')
-// // const p2CreateCaptain = document.createElement('div')
-// //                         .setAttribute('class', 'p1Captain')
-// class Captain{
-//     constructor(player){
-//     this.player = player;
-//     this.value = 4;
-//     }
-// move(){
-// //can move 1 in any direction that is avail
-//     }
-// };
-// // class Major{
-// //     constructor(player){
-// //     this.player = player;
-// //     this.value = 3;
-// //     }
-// // move(){
-// // //can move 1 space in any direction that is avail
-// //     }
-// // };
-// // class Bomb{
-// //     constructor(player){
-// //     this.player = player;
-// //     }
-// // blowUp(){
-// // //will 'kill' the enemy piece that attacks it
-// //     }
-// // };
-// // class Flag{
-// //     constructor(player){
-// //     this.player = player;
-// //     }
-// // loss(){
-// //if grabbed, will end the game -winner will be who grabs the opposite flag
-// //     }
-// // };
-
 
 // //          state            //
 
 // // location of the pieces
 // // logic for understanding areas that can be moved to
-
 
 
 // //          cashed elements    //
@@ -116,24 +81,66 @@ boardEl = [
 //         // 'taken'
 
 // //          render          //
-const render = function(){
-    styleGame();
-    // p1Name = prompt('Player 1, what is your name?');
+const render = function(){ //put these in init
+
+
+
+// do loop thingy here of board Array, 
+// if value, add piece of that value to that square
+// move('id of cached el', 'then to board ([i][j])'')
+// after loop, set cachedEl to null
 }
 const resetGame = function(){
     styleGame();
     resetPieces();
+    playerOneSetup();
 }
 // // display moved piece
 // // change msg on board for next player
 
 
 // // functions
-const init = function(){
+function playerOneSetup(){
+    countdown(2);
+    currentPlayer = p1Name;
+    notPlayer = p2Name;
+    msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
+                    + ' --- You have two minutes to setup your pieces');       
+                        //   playerTwoSetup();
+ 
+                        console.log('switch start works')
+      alert(notPlayer.innerText + ', Please look away')
+};
+
+function playerTwoSetup(){
+    countdown(2);
+    currentPlayer = p2Name;
+    notPlayer = p1Name;
+    msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
+    + ' --- You have two minutes to setup your pieces');
+alert(notPlayer.innerText + ', Please look away')
+};
+function init(){
+    styleGame();
     playerOneStart();
     playerTwoStart();
+    playerOneSetup();
     render();
 }
+const changePlayer = function() {
+    if (currentPlayer === p1Name) {
+      currentPlayer = p2Name;
+      notPlayer = p1Name;
+    } else {
+      currentPlayer = p1Name;
+      notPlayer = p2Name;
+    }
+    msgEl.innerText = ("Current Player is: " + currentPlayer.innerText
+                     + ' . you have 45 seconds to make a move');
+    alert(notPlayer.innerText + ', Please look away');
+    countdown(.75);
+  };
+  
 const playerOneStart = function(){
     createP1Captain= document.createElement('div');
        createP1Captain.setAttribute('id', 'p1Captain');
@@ -223,21 +230,50 @@ const resetPieces = function(){
     p1Cont.appendChild(createP1Bomb);
     p1Cont.appendChild(createP1Flag);
     p1Cont.appendChild(createP1Captain);
-    for(i=0; i<7; i++){
+        for(i=0; i<7; i++){
         p1Cont.appendChild(createP1Major)
     }
     p2Cont.appendChild(createP2Bomb);
     p2Cont.appendChild(createP2Flag);
     p2Cont.appendChild(createP2Captain);
-    for(i=0; i<7; i++){
+        for(i=0; i<7; i++){
         p2Cont.appendChild(createP2Major)
     }
+    playerOneSetup();
 }
 const confirmReset = function() {
     let e = confirm('Are You Sure You Want To Reset?');
     if(e === true){
         resetPieces();
     }
+}
+
+let countdownIntervalId; 
+// let timerId; //push value here?
+
+// function countdown(start) {    
+//     let secondsToCount = start * 60; 
+//     countdownIntervalId = setInterval(timer, 1000);
+//     function timer() { 
+//         const minutes = Math.floor(secondsToCount / 60);
+//         let seconds = secondsToCount - minutes*60;
+//         timerEl.innerHTML = ("Time Left - " + minutes + ':' + `${seconds}`.padStart(2, '0'))
+//         secondsToCount = secondsToCount-1;
+//         if (minutes <= 0 && seconds <= 0) {
+//             clearInterval(countdownIntervalId);
+//             console.log('timerOver')
+//         } 
+//     }
+// }
+
+// function stopCountdown(){
+//     if(countdownIntervalId){
+//         clearInterval(countdownIntervalId)
+//     }
+// }
+
+function restartCountdown(){
+   setInterval(countdown(start), 1000);
 }
 
 // // event listeners 
@@ -252,26 +288,68 @@ closeRulesEl.addEventListener('click', closeRules)
 reset.addEventListener('click', confirmReset);
 
 
-move = function(char, space) {
+function move(char, space) {
     document.getElementById(char)
     document.getElementById(space).append(document.getElementById(char))
     // console.log('moved');
+    //itterate over board to see if its avail - if value is open (0)
 }
-// idEl = [
-//     ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'],  // Column 0
-//     ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7'],  // Column 1
-//     ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7'],  // Column 2
-//     ['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7'],  // Column 3
-//     ['e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'e7'],  // Column 4
-//     ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7'],  // Column 5
-//     ['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7'],  // Column 6
-//   ];
-//   for(i=0; i<idEl.length; i++){
-//     for(j=0; j<idEl.length; j++){
-//         document.querySelector("#gameBoard" > 'div')
-//         if(boardEl[i][j] !== 0){
-//   console.log('taken!');
-//       }
-//   }
-// }
-// defineBoard();
+
+
+// render()
+
+// document.querySelector("#clickContainer").addEventListener('click', function(e) {
+//     e = e || window.event;
+//     var target = e.target || e.srcElement,
+//         text = target.textContent || target.innerText;   
+// }, false);
+document.querySelector("#clickContainer").addEventListener('click', function(e){
+if(clickedEl === null){
+    clickedEl = e.target;
+    }else{
+        console.log(e.target.id)
+       move(clickedEl.id, e.target.id)
+       clickedEl = null;
+    }
+});
+
+
+// first click - cache element to clicked
+// if clicked el is a value, if isnt a value, cache it. (would mean evmpy cache)
+// then - 
+// second click - check value of space (get inner text of clickedEl) 
+// if m, udate board to whatever value is
+// then render the board
+
+
+// if inner text = 'letter' then = 'value' for board array
+
+
+//checked to see if clicked el has an element
+//if has element - 
+//set piece has value
+
+// 1) be able to restart timer - call to function
+// 2) click to select a div (347-349) but then be avle to click again and move the div there
+//             1a) will createo logiv for what can and cannot be selected
+// 3) linking array to gameboard
+// 4) logic for checking board moves avail
+// 5) logic for what pieces can and cannot move
+// 6) create where "dead" pieces go
+// 7) create object class for pieces??? link them to div element?
+// 8) all majors reset on reset button
+
+
+//set id manulally
+//update 
+
+//pieces have value
+//clicked el then equals null
+//then call render to move the piece on teh board
+//if clicked sqiare has 0, then value has 1
+//1 in UI means major
+
+
+
+
+//on render - do move piece, 

@@ -75,17 +75,40 @@ boardEl = [
 
 // //          render          //
 
-boardEl.forEach(function(i, j) {
-    // Iterate over the col array to access the cell vals
-    colArr.forEach(function(cellVal, rowIdx) {
-      // Select the correct div for this cellVal
-      const div = document.getElementById(`c${colIdx}r${rowIdx}`);
-      div.style.backgroundColor = colorLookup[cellVal];
-    });
-    // <conditional expression> ? <truthy val> : <falsey val>;
-    markerEls[colIdx].style.visibility = colArr.includes(0) ? 'visible' : 'hidden';
-    console.log('available' + board[i][j])
-  });
+// boardEl.forEach(function(colArr, colIdx) {
+//     // Iterate over the col array to access the cell vals
+//     colArr.forEach(function(cellVal, colIdx) {
+//       // Select the correct div for this cellVal
+//       const div = document.getElementById(`c${colIdx}r${rowIdx}`);
+//       div.style.backgroundColor = colorLookup[cellVal];
+//     });
+//     // <conditional expression> ? <truthy val> : <falsey val>;
+//     markerEls[colIdx].style.visibility = colArr.includes(0) ? 'visible' : 'hidden';
+//     console.log('available' + board[i][j])
+//   });
+
+
+
+
+
+
+
+//   board.forEach(function(colArr, colIdx) {
+//     // Iterate over the col array to access the cell vals
+//     colArr.forEach(function(cellVal, rowIdx) {
+//       // Select the correct div for this cellVal
+//       const div = document.getElementById(`c${colIdx}r${rowIdx}`);
+//       div.style.backgroundColor = colorLookup[cellVal];
+//     });
+//     // <conditional expression> ? <truthy val> : <falsey val>;
+//     markerEls[colIdx].style.visibility = colArr.includes(0) ? 'visible' : 'hidden';
+//   });
+
+
+
+
+
+
 
 
 const render = function(){ //put these in init

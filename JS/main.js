@@ -227,19 +227,19 @@ const closeRules = function() {
     reset.style.display = 'table';
 }
 const resetPieces = function(){
-    p1Cont.appendChild(createP1Bomb);
-    p1Cont.appendChild(createP1Flag);
-    p1Cont.appendChild(createP1Captain);
-        for(i=0; i<7; i++){
-        p1Cont.appendChild(createP1Major)
-    }
-    p2Cont.appendChild(createP2Bomb);
-    p2Cont.appendChild(createP2Flag);
-    p2Cont.appendChild(createP2Captain);
-        for(i=0; i<7; i++){
-        p2Cont.appendChild(createP2Major)
-    }
-    playerOneSetup();
+    // p1Cont.appendChild(createP1Bomb);
+    // p1Cont.appendChild(createP1Flag);
+    // p1Cont.appendChild(createP1Captain);
+    //     for(i=0; i<7; i++){
+    //     p1Cont.appendChild(createP1Major)
+    // }
+    // p2Cont.appendChild(createP2Bomb);
+    // p2Cont.appendChild(createP2Flag);
+    // p2Cont.appendChild(createP2Captain);
+    //     for(i=0; i<7; i++){
+    //     p2Cont.appendChild(createP2Major)
+    // }
+    // playerOneSetup();
 }
 const confirmReset = function() {
     let e = confirm('Are You Sure You Want To Reset?');
@@ -304,7 +304,7 @@ function move(char, space) {
 //         text = target.textContent || target.innerText;   
 // }, false);
 document.querySelector("#clickContainer").addEventListener('click', function(e){
-if(clickedEl === null && clickedEl !== p1Cont & clickedEl !== p2Cont && clickedEl !== boardObj){
+if(clickedEl === null && clickedEl !== p1Cont && clickedEl !== p2Cont && clickedEl !== boardObj){
     clickedEl = e.target;
     }else{
         console.log(e.target.id)

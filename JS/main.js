@@ -304,7 +304,7 @@ function move(char, space) {
 //         text = target.textContent || target.innerText;   
 // }, false);
 document.querySelector("#clickContainer").addEventListener('click', function(e){
-if(clickedEl === null){
+if(clickedEl === null && clickedEl !== p1Cont & clickedEl !== p2Cont && clickedEl !== boardObj){
     clickedEl = e.target;
     }else{
         console.log(e.target.id)

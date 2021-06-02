@@ -28,15 +28,15 @@ const reset = document.querySelector("#reset");
 let clickedEl = null;
 let currentPlayer
 boardEl = [
-    [0, 0, 0, 0, 0, 12, 0],  // Column 0
-    [0, 2, 3, 0, 0, 0, 0],  // Column 1
+    [0, 0, 0, 0, 0, 0, 0],  // Column 0
+    [0, 0, 0, 0, 0, 0, 0],  // Column 1
     [0, 0, 0, 0, 0, 0, 0],  // Column 2
     [0, 0, 0, 0, 0, 0, 0],  // Column 3
-    [0, 0, 0, 14, 0, 0, 0],  // Column 4
-    [0, 11, 0, 0, 0, 0, 0],  // Column 5
+    [0, 0, 0, 0, 0, 0, 0],  // Column 4
+    [0, 0, 0, 0, 0, 0, 0],  // Column 5
     [0, 0, 0, 0, 0, 0, 0],  // Column 6
   ];
-  
+  const boardTiles = boardObj.children
 
 // //          state            //
 
@@ -57,71 +57,144 @@ boardEl = [
 
 // boardEl.forEach(function(colArr, colIdx) {
 //     // Iterate over the col array to access the cell vals
-//     colArr.forEach(function(cellVal, colIdx) {
-//       // Select the correct div for this cellVal
-//       const div = document.getElementById(`c${colIdx}r${rowIdx}`);
-//       div.style.backgroundColor = colorLookup[cellVal];
-//     });
-//     // <conditional expression> ? <truthy val> : <falsey val>;
-//     markerEls[colIdx].style.visibility = colArr.includes(0) ? 'visible' : 'hidden';
-//     console.log('available' + board[i][j])
-//   });
-
-
-
-
-//   boardEl.forEach(function(colArr, colIdx) {
-//     // Iterate over the col array to access the cell vals
 //     colArr.forEach(function(cellVal, rowIdx) {
 //       // Select the correct div for this cellVal
 //       let div = document.getElementById(`c${colIdx}r${rowIdx}`);
-//       div.style.backgroundColor = colorLookup[cellVal];
+//       div.style.backgroundColor = pieceRender()[cellVal];
 //     });
 //     // <conditional expression> ? <truthy val> : <falsey val>;
 //     markerEls[colIdx].style.visibility = colArr.includes(0) ? 'visible' : 'hidden';
+// console.log('available' + board[i][j])
 //   });
 
 
+// each time loop through
 
-
-
-
+function pieceCheck(){
+    for(let i=0; i<boardTiles.length; i++){
+        if(boardTiles[i].children.length){
+            const piece = boardTiles[i].children[0].className;
+            const colIdx = boardTiles[i].id[1]
+            const rowIdx = boardTiles[i].id[3]
+            console.log(piece)
+            switch (piece){
+                case 'p1Major':
+                    boardEl[rowIdx][colIdx] = 1
+                    break;
+                case 'p1Bomb':
+                    boardEl[rowIdx][colIdx] = 3
+                    break;
+                case 'p1Captain':
+                    boardEl[rowIdx][colIdx] = 2
+                    break;
+                case 'p1Flag':
+                    boardEl[rowIdx][colIdx] = 4
+                    break;
+                case 'p2Major':
+                    boardEl[rowIdx][colIdx] = 11
+                    break;
+                case 'p2Bomb':
+                    boardEl[rowIdx][colIdx] = 13
+                    break;
+                case 'p2Captain':
+                    boardEl[rowIdx][colIdx] = 12
+                    break;
+                case 'p2Flag':
+                    boardEl[rowIdx][colIdx] = 14
+                    break;       
+                default:
+                    boardEl[rowIdx][colIdx] = 0
+                    break;      
+            }
+        } else if(boardTiles[i].children.length === 0){
+            const colIdx = boardTiles[i].id[1]
+            const rowIdx = boardTiles[i].id[3]
+            boardEl[rowIdx][colIdx] = 0
+        }
+    }
+}
+    // <conditional expression> ? <truthy val> : <falsey val>;
+//     markerEls[colIdx].style.visibility = colArr.includes(0) ? 'visible' : 'hidden';
+// console.log('available' + board[i][j])
+//   });
 
 
   function render(){ //put these in init
+    // pieceRender();
     for(i=0; i<boardEl.length; i++){
         for(j=0; j<boardEl.length; j++){
             if(boardEl[i][j] !== 0){ //do this if 0 //else if do this if 2//
-                pieceRender();
-      console.log('taken! ' +[i],[j] + ' value is ' +boardEl[i][j]);
-          } 
-      }
-    }
-function pieceRender(){
-    if(boardEl[i][j] === 1){
-        console.log('p1Major')
-    }else if(boardEl[i][j] === 2){
-        console.log('p1Captain')
-    }else if(boardEl[i][j] === 3){
-        console.log('p1bomb')
-    } else if(boardEl[i][j] === 4){
-        console.log('p1flag')
-    } else if(boardEl[i][j] === 11){
-        console.log('p1Major')
-    }else if(boardEl[i][j] === 12){
-        console.log('p2Captain')
-    }else if(boardEl[i][j] === 13){
-        console.log('p2bomb')
-    } else{
-        console.log('p2flag')
-    }
-}
+                boardEl.forEach(function(colArr, colIdx) {
+                    colArr.forEach(function(rowIdx) {
+                      let div = document.getElementById(`c${colIdx}r${rowIdx}`);
+                      if(div.childElementCount !== 0){
+                    //       console.log('taken at ' + `c${colIdx}r${rowIdx}` ) 
+                            if(boardEl[i][j] === 1){
+                                console.log('p1Major')
+                            }else if(boardEl[i][j] === 2){
+                                console.log('p1Captain')
+                            }else if(boardEl[i][j] === 3){
+                                console.log('p1bomb')
+                            } else if(boardEl[i][j] === 4){
+                                console.log('p1flag')
+                            } else if(boardEl[i][j] === 11){
+                                console.log('p1Major')
+                            }else if(boardEl[i][j] === 12){
+                                console.log('p2Captain')
+                            }else if(boardEl[i][j] === 13){
+                                console.log('p2bomb')
+                            } else if(boardEl[i][j] === 14){
+                                console.log('p2flag') 
+                            }
+                console.log('taken! ' +[i],[j] + ' value is ' +boardEl[i][j]);
+                        } 
+                })
+            }
+                )}
+     }
+}}
+// function pieceRender(){
+//     if(boardEl[i][j] === 1){
+//         console.log('p1Major')
+//     }else if(boardEl[i][j] === 2){
+//         console.log('p1Captain')
+//     }else if(boardEl[i][j] === 3){
+//         console.log('p1bomb')
+//     } else if(boardEl[i][j] === 4){
+//         console.log('p1flag')
+//     } else if(boardEl[i][j] === 11){
+//         console.log('p1Major')
+//     }else if(boardEl[i][j] === 12){
+//         console.log('p2Captain')
+//     }else if(boardEl[i][j] === 13){
+//         console.log('p2bomb')
+//     } else{
+//         console.log('p2flag')
+//     }
+// }
+    // for(i=0; i<boardEl.length; i++){
+    //     for(j=0; j<boardEl.length; j++){
+    //         if(clickedEl.innerText === 'M'){ //do this if 0 //else if do this if 2//
+    //             boardEl[i][j] === 1;
+    //             console.log('done')
+    //         }else if(clickedEl.innerText === 'C'){ //do this if 0 //else if do this if 2//
+    //             boardEl[i][j] === 2;
+    //         }else if(clickedEl.innerText === 'F'){ //do this if 0 //else if do this if 2//
+    //             boardEl[i][j] === 4;
+    //         }else if(clickedEl.innerText === 'B'){ //do this if 0 //else if do this if 2//
+    //             boardEl[i][j] === 3;
+    //         }else{ //do this if 0 //else if do this if 2//
+    //             boardEl[i][j] === 0;
+    //         }
+    //     }
+    // }
+// }
 
 // do loop thingy here of board Array, 
 // if value, add piece of that value to that square
 // move('id of cached el', 'then to board ([i][j])'')
 // after loop, set cachedEl to null
-}
+// }
 function resetGame(){
     styleGame();
     resetPieces();
@@ -139,8 +212,6 @@ function playerOneSetup(){
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
                     + ' --- You have two minutes to setup your pieces');       
                         //   playerTwoSetup();
- 
-                        console.log('switch start works')
       alert(notPlayer.innerText + ', Please look away')
 };
 
@@ -178,14 +249,17 @@ function changePlayer() {
 function playerOneStart(){
     createP1Captain= document.createElement('div');
        createP1Captain.setAttribute('id', 'p1Captain');
+       createP1Captain.setAttribute('class', 'p1Captain')
        createP1Captain.innerText = 'C';
        p1Cont.appendChild(createP1Captain)
     createP1Bomb = document.createElement('div');
        createP1Bomb.setAttribute('id', 'p1Bomb');
+       createP1Bomb.setAttribute('class', 'p1Bomb');
        createP1Bomb.innerText = 'B';
        p1Cont.appendChild(createP1Bomb)
     createP1Flag = document.createElement('div');
        createP1Flag.setAttribute('id', 'p1Flag');
+       createP1Flag.setAttribute('class', 'p1Flag');
        createP1Flag.innerText = 'F';
        p1Cont.appendChild(createP1Flag)
        for(i=0; i<7; i++){
@@ -200,14 +274,17 @@ function playerOneStart(){
 function playerTwoStart(){
      createP2Captain= document.createElement('div');
         createP2Captain.setAttribute('id', 'p2Captain');
+        createP2Captain.setAttribute('class', 'p2Captain');
         createP2Captain.innerText = 'C';
         p2Cont.appendChild(createP2Captain)
      createP2Bomb = document.createElement('div');
         createP2Bomb.setAttribute('id', 'p2Bomb');
+        createP2Bomb.setAttribute('class', 'p2Bomb');
         createP2Bomb.innerText = 'B';
         p2Cont.appendChild(createP2Bomb)
      createP2Flag = document.createElement('div');
         createP2Flag.setAttribute('id', 'p2Flag');
+        createP2Flag.setAttribute('class', 'p2Flag');
         createP2Flag.innerText = 'F';
         p2Cont.appendChild(createP2Flag)
         for(i=0; i<7; i++){
@@ -284,7 +361,7 @@ function confirmReset() {
 }
 
 let countdownIntervalId; 
-let timerId; //push value here?
+// let timerId; //push value here?
 
 function countdown(start) {    
     let secondsToCount = start * 60; 
@@ -326,9 +403,16 @@ reset.addEventListener('click', confirmReset);
 function move(char, space) {
     if(space === 'c0r3' || space === 'c1r3' || space === 'c5r3' || space === 'c6r3'){
         msgEl.innerText = 'You cannot move into the water';
+        // setTimeout(function(msg){
+        //     popup thing here
+        // })
         clickedEl.style.opacity = 1;
         clickedEl = null;
-    } else{
+    }else if(space ===  'clickContainer' || space === 'pieceHolder' || space === 'gameBoard'){
+        msgEl.innerText = 'You must move the piece inside the board';   
+        clickedEl.style.opacity = 1;
+        clickedEl = null;
+    }else{
         document.getElementById(char);
         document.getElementById(space).append(document.getElementById(char));
         if(clickedEl.innerText === 'M'){
@@ -359,6 +443,7 @@ if(currentPlayer === p1Name){
     }else{
         console.log(e.target.id)
        move(clickedEl.id, e.target.id)
+       pieceCheck();
        clickedEl.style.opacity = 1;
        clickedEl = null;
     //    updateArray();
@@ -371,6 +456,7 @@ if(currentPlayer === p1Name){
             }else{
                 console.log(e.target.id)
                move(clickedEl.id, e.target.id)
+               pieceCheck();
                clickedEl.style.opacity = 1;
                clickedEl = null;
             //    updateArray();

@@ -380,6 +380,38 @@ function move(char, space) {
      }
     }
 }
+function moveAfterStart(char, space){
+    if(space === 'c0r3' || space === 'c1r3' || space === 'c5r3' || space === 'c6r3'){
+        msgEl.innerText = 'You cannot move into the water';
+        // setTimeout(function(msg){
+        //     popup thing here
+        // })
+        clickedEl.style.opacity = 1;
+        clickedEl = null;
+    }else if(space ===  'clickContainer' || space === 'pieceHolder' || space === 'gameBoard'){
+        msgEl.innerText = 'You must move the piece inside the board';   
+        clickedEl.style.opacity = 1;
+        clickedEl = null;
+    }else if(char ==='p1Bomb' || char ==='p1Flag' || char ==='p2Bomb' || char ==='p2Flag'){
+        msgEl.innerText = 'cannot move a bomb of flag once placed';   
+        clickedEl.style.opacity = 1;
+        clickedEl = null;
+    }else{
+        document.getElementById(char);
+        document.getElementById(space).append(document.getElementById(char));
+        if(clickedEl.innerText === 'M'){
+            console.log('m')
+        }else if(clickedEl.innerText === 'B'){
+            console.log('b')
+        }else if(clickedEl.innerText === 'C'){
+            console.log('c');
+        }else if(clickedEl.innerText === 'F'){
+            console.log('f')
+    // console.log('moved');
+    //itterate over board to see if its avail - if value is open (0)
+     }
+    }
+}
 // render()
 
 // document.querySelector("#clickContainer").addEventListener('click', function(e) {
@@ -393,8 +425,8 @@ if(currentPlayer === p1Name){
     clickedEl = e.target;
     clickedEl.style.opacity = .5;
     }else{
-            // canMove();  
             if(p1Cont.childElementCount > 0 && startArrayP1.includes(e.target.id)){
+            // highlightP1Start();
             move(clickedEl.id, e.target.id)
             pieceCheck();
             clickedEl.style.opacity = 1;
@@ -408,7 +440,7 @@ if(currentPlayer === p1Name){
                     msgEl.innerText = 'must move in the beginning squares highlighted'
                 }
         }if(p1Cont.childElementCount === 0){ 
-                move(clickedEl.id, e.target.id)
+                moveAfterStart(clickedEl.id, e.target.id)
                 pieceCheck();
                 clickedEl.style.opacity = 1;
                 clickedEl = null;
@@ -438,7 +470,7 @@ if(currentPlayer === p1Name){
             }
             
             if(p2Cont.childElementCount === 0){ 
-                move(clickedEl.id, e.target.id)
+                moveAfterStart(clickedEl.id, e.target.id)
                 pieceCheck();
                 clickedEl.style.opacity = 1;
                 clickedEl = null;

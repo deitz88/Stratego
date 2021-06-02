@@ -120,75 +120,8 @@ function pieceCheck(){
 
 
   function render(){ //put these in init
-    // pieceRender();
-    for(i=0; i<boardEl.length; i++){
-        for(j=0; j<boardEl.length; j++){
-            if(boardEl[i][j] !== 0){ //do this if 0 //else if do this if 2//
-                boardEl.forEach(function(colArr, colIdx) {
-                    colArr.forEach(function(rowIdx) {
-                      let div = document.getElementById(`c${colIdx}r${rowIdx}`);
-                      if(div.childElementCount !== 0){
-                    //       console.log('taken at ' + `c${colIdx}r${rowIdx}` ) 
-                            if(boardEl[i][j] === 1){
-                                console.log('p1Major')
-                            }else if(boardEl[i][j] === 2){
-                                console.log('p1Captain')
-                            }else if(boardEl[i][j] === 3){
-                                console.log('p1bomb')
-                            } else if(boardEl[i][j] === 4){
-                                console.log('p1flag')
-                            } else if(boardEl[i][j] === 11){
-                                console.log('p1Major')
-                            }else if(boardEl[i][j] === 12){
-                                console.log('p2Captain')
-                            }else if(boardEl[i][j] === 13){
-                                console.log('p2bomb')
-                            } else if(boardEl[i][j] === 14){
-                                console.log('p2flag') 
-                            }
-                console.log('taken! ' +[i],[j] + ' value is ' +boardEl[i][j]);
-                        } 
-                })
-            }
-                )}
-     }
-}}
-// function pieceRender(){
-//     if(boardEl[i][j] === 1){
-//         console.log('p1Major')
-//     }else if(boardEl[i][j] === 2){
-//         console.log('p1Captain')
-//     }else if(boardEl[i][j] === 3){
-//         console.log('p1bomb')
-//     } else if(boardEl[i][j] === 4){
-//         console.log('p1flag')
-//     } else if(boardEl[i][j] === 11){
-//         console.log('p1Major')
-//     }else if(boardEl[i][j] === 12){
-//         console.log('p2Captain')
-//     }else if(boardEl[i][j] === 13){
-//         console.log('p2bomb')
-//     } else{
-//         console.log('p2flag')
-//     }
-// }
-    // for(i=0; i<boardEl.length; i++){
-    //     for(j=0; j<boardEl.length; j++){
-    //         if(clickedEl.innerText === 'M'){ //do this if 0 //else if do this if 2//
-    //             boardEl[i][j] === 1;
-    //             console.log('done')
-    //         }else if(clickedEl.innerText === 'C'){ //do this if 0 //else if do this if 2//
-    //             boardEl[i][j] === 2;
-    //         }else if(clickedEl.innerText === 'F'){ //do this if 0 //else if do this if 2//
-    //             boardEl[i][j] === 4;
-    //         }else if(clickedEl.innerText === 'B'){ //do this if 0 //else if do this if 2//
-    //             boardEl[i][j] === 3;
-    //         }else{ //do this if 0 //else if do this if 2//
-    //             boardEl[i][j] === 0;
-    //         }
-    //     }
-    // }
-// }
+    pieceCheck();
+}
 
 // do loop thingy here of board Array, 
 // if value, add piece of that value to that square
@@ -205,6 +138,25 @@ function resetGame(){
 
 
 // // functions
+function canMove(){
+    // for(let i=0; i<boardTiles.length; i++){
+    //     if(boardTiles[i].children.length){
+    //         if(boardTiles[i].children.className === 'p1Bomb'){ 
+             for(i=0; i<boardEl.length; i++){
+                for(j=0; j<boardEl.length; j++){
+                    if(boardEl[i][j] === 3){ //do this if 0 //else if do this if 2//
+      console.log('p1Bomb')
+      clickedEl = null;
+                    }else{
+                        return clickedEl
+                //         }
+                //     }
+                // }
+            }
+        }
+    }
+}
+
 function playerOneSetup(){
     // countdown(2);
     currentPlayer = p1Name;
@@ -437,35 +389,69 @@ function move(char, space) {
 // }, false);
 document.querySelector("#clickContainer").addEventListener('click', function(e){
 if(currentPlayer === p1Name){
-    if(clickedEl === null && moveArrayP1.includes(e.target.id)){
+    if(clickedEl === null && pieceArrayP1.includes(e.target.id)){
     clickedEl = e.target;
     clickedEl.style.opacity = .5;
     }else{
-        console.log(e.target.id)
-       move(clickedEl.id, e.target.id)
-       pieceCheck();
-       clickedEl.style.opacity = 1;
-       clickedEl = null;
-    //    updateArray();
-       if(p1Cont.childElementCount === 0){ 
-                changePlayer();}
-    }} else {
-        if(clickedEl === null && moveArrayP2.includes(e.target.id)){
+            // canMove();  
+            if(p1Cont.childElementCount > 0 && startArrayP1.includes(e.target.id)){
+            move(clickedEl.id, e.target.id)
+            pieceCheck();
+            clickedEl.style.opacity = 1;
+            clickedEl = null;
+                if(p1Cont.childElementCount === 0){
+                    playerTwoSetup();
+                }
+            }if(p1Cont.childElementCount > 0 && startArrayP1.includes(e.target.id) !== true){
+                    clickedEl.style.opacity = 1;
+                    clickedEl = null;
+                    msgEl.innerText = 'must move in the beginning squares highlighted'
+                }
+        }if(p1Cont.childElementCount === 0){ 
+                move(clickedEl.id, e.target.id)
+                pieceCheck();
+                clickedEl.style.opacity = 1;
+                clickedEl = null;
+                if(p2Cont.childElementCount !== 0){
+                    playerTwoSetup();
+                }else if(p1Cont.childElementCount === 0){
+                    changePlayer();
+                    }
+                }
+            
+    } else {
+        if(clickedEl === null && pieceArrayP2.includes(e.target.id)){
             clickedEl = e.target;
             clickedEl.style.opacity = .5;
-            }else{
-                console.log(e.target.id)
+        }else{
+            if(p2Cont.childElementCount > 0 && startArrayP2.includes(e.target.id)){
                move(clickedEl.id, e.target.id)
                pieceCheck();
                clickedEl.style.opacity = 1;
                clickedEl = null;
-            //    updateArray();
+                if(p2Cont.childElementCount === 0){
+                    changePlayer();}
+            }if(p2Cont.childElementCount > 0 && startArrayP2.includes(e.target.id) !== true){
+                clickedEl.style.opacity = 1;
+                clickedEl = null;
+                msgEl.innerText = 'must move in the beginning squares highlighted'
+            }
+            
             if(p2Cont.childElementCount === 0){ 
-                changePlayer();}
-    }}
+                move(clickedEl.id, e.target.id)
+                pieceCheck();
+                clickedEl.style.opacity = 1;
+                clickedEl = null;
+                changePlayer();
+            }
+        }
+    }
 });
-moveArrayP1= ['p1M1', 'p1M2', 'p1M3', 'p1M4', 'p1M5', 'p1M6', 'p1M0', 'p1Bomb', 'p1Flag', 'p1Captain']
-moveArrayP2= ['p2M1', 'p2M2', 'p2M3', 'p2M4', 'p2M5', 'p2M6', 'p2M0', 'p2Bomb', 'p2Flag', 'p2Captain' ]
+  
+pieceArrayP1= ['p1M1', 'p1M2', 'p1M3', 'p1M4', 'p1M5', 'p1M6', 'p1M0', 'p1Bomb', 'p1Flag', 'p1Captain']
+pieceArrayP2= ['p2M1', 'p2M2', 'p2M3', 'p2M4', 'p2M5', 'p2M6', 'p2M0', 'p2Bomb', 'p2Flag', 'p2Captain' ]
+startArrayP1=['c1r0', 'c2r0','c3r0','c4r0','c5r0','c1r1','c2r1','c3r1','c4r1','c5r1']
+startArrayP2=['c1r5', 'c2r5','c3r5','c4r5','c5r5','c1r6','c2r6','c3r6','c4r6','c5r6']
              
 
 // first click - cache element to clicked

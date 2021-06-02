@@ -1,26 +1,5 @@
 //         constants          //          
-// gameboard div
 
-
-//letters = this value below:
-
-
-
-// hardcode column and row
-
-
-// p1 pieces
-//     1 flag
-//     1 1
-//     1 bomb
-//     7 2
-// p2 pieces
-//     1 flag
-//     1 1
-//     1 bomb
-//     7 2
-// const p1;
-// const p2;
 const closePopup = document.getElementById("popupclose");
 const overlay = document.getElementById("overlay");
 const popup = document.getElementById("popup");
@@ -29,15 +8,15 @@ const boardObj = document.querySelector("#gameBoard");
 const p1Cont = document.querySelector("#pieceHolder > div.p1Container")
 const p2Cont = document.querySelector("#pieceHolder > div.p2Container")
 
-const p1Major = document.getElementsByClassName('p1Major');
-const p1Captain = document.getElementById('p1Captain');
-const p1Flag = document.getElementById('p1Flag');
-const p1Bomb = document.querySelector("#p1Bomb");
+// const p1Major = document.getElementsByClassName('p1Major');
+// const p1Captain = document.getElementById('p1Captain');
+// const p1Flag = document.getElementById('p1Flag');
+// const p1Bomb = document.querySelector("#p1Bomb");
 
-const p2Major = document.getElementsByClassName('p2Major');
-const p2Captain = document.getElementById('p2Captain');
-const p2Flag = document.getElementById('p2Flag');
-const p2Bomb = document.getElementById('p2Bomb');
+// const p2Major = document.getElementsByClassName('p2Major');
+// const p2Captain = document.getElementById('p2Captain');
+// const p2Flag = document.getElementById('p2Flag');
+// const p2Bomb = document.getElementById('p2Bomb');
 
 const msgEl = document.querySelector("body > div.container > h2.msg")
 const timerEl = document.querySelector("#countdown")
@@ -47,13 +26,14 @@ const p2Name = document.querySelector("#pieceHolder > h3.p2Header")
 const rules = document.querySelector("#rules");
 const reset = document.querySelector("#reset");
 let clickedEl = null;
+let currentPlayer
 boardEl = [
-    [0, 0, 0, 0, 0, 0, 0],  // Column 0
-    [0, 0, 3, 0, 0, 0, 0],  // Column 1
+    [0, 0, 0, 0, 0, 12, 0],  // Column 0
+    [0, 2, 3, 0, 0, 0, 0],  // Column 1
     [0, 0, 0, 0, 0, 0, 0],  // Column 2
     [0, 0, 0, 0, 0, 0, 0],  // Column 3
-    [0, 0, 0, 100, 0, 0, 0],  // Column 4
-    [0, 0, 0, 0, 0, 0, 0],  // Column 5
+    [0, 0, 0, 14, 0, 0, 0],  // Column 4
+    [0, 11, 0, 0, 0, 0, 0],  // Column 5
     [0, 0, 0, 0, 0, 0, 0],  // Column 6
   ];
   
@@ -90,14 +70,11 @@ boardEl = [
 
 
 
-
-
-
-//   board.forEach(function(colArr, colIdx) {
+//   boardEl.forEach(function(colArr, colIdx) {
 //     // Iterate over the col array to access the cell vals
 //     colArr.forEach(function(cellVal, rowIdx) {
 //       // Select the correct div for this cellVal
-//       const div = document.getElementById(`c${colIdx}r${rowIdx}`);
+//       let div = document.getElementById(`c${colIdx}r${rowIdx}`);
 //       div.style.backgroundColor = colorLookup[cellVal];
 //     });
 //     // <conditional expression> ? <truthy val> : <falsey val>;
@@ -111,22 +88,41 @@ boardEl = [
 
 
 
-const render = function(){ //put these in init
+  function render(){ //put these in init
     for(i=0; i<boardEl.length; i++){
         for(j=0; j<boardEl.length; j++){
             if(boardEl[i][j] !== 0){ //do this if 0 //else if do this if 2//
+                pieceRender();
       console.log('taken! ' +[i],[j] + ' value is ' +boardEl[i][j]);
           } 
       }
     }
-
+function pieceRender(){
+    if(boardEl[i][j] === 1){
+        console.log('p1Major')
+    }else if(boardEl[i][j] === 2){
+        console.log('p1Captain')
+    }else if(boardEl[i][j] === 3){
+        console.log('p1bomb')
+    } else if(boardEl[i][j] === 4){
+        console.log('p1flag')
+    } else if(boardEl[i][j] === 11){
+        console.log('p1Major')
+    }else if(boardEl[i][j] === 12){
+        console.log('p2Captain')
+    }else if(boardEl[i][j] === 13){
+        console.log('p2bomb')
+    } else{
+        console.log('p2flag')
+    }
+}
 
 // do loop thingy here of board Array, 
 // if value, add piece of that value to that square
 // move('id of cached el', 'then to board ([i][j])'')
 // after loop, set cachedEl to null
 }
-const resetGame = function(){
+function resetGame(){
     styleGame();
     resetPieces();
     playerOneSetup();
@@ -155,6 +151,7 @@ function playerTwoSetup(){
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
     + ' --- You have two minutes to setup your pieces');
 alert(notPlayer.innerText + ', Please look away')
+
 };
 function init(){
     styleGame();
@@ -163,7 +160,7 @@ function init(){
     playerOneSetup();
     render();
 }
-const changePlayer = function() {
+function changePlayer() {
     if (currentPlayer === p1Name) {
       currentPlayer = p2Name;
       notPlayer = p1Name;
@@ -174,10 +171,11 @@ const changePlayer = function() {
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText
                      + ' . you have 45 seconds to make a move');
     alert(notPlayer.innerText + ', Please look away');
+    stopCountdown();
     countdown(.75);
   };
   
-const playerOneStart = function(){
+function playerOneStart(){
     createP1Captain= document.createElement('div');
        createP1Captain.setAttribute('id', 'p1Captain');
        createP1Captain.innerText = 'C';
@@ -199,7 +197,7 @@ const playerOneStart = function(){
        };   
 };
 
-const playerTwoStart = function(){
+function playerTwoStart(){
      createP2Captain= document.createElement('div');
         createP2Captain.setAttribute('id', 'p2Captain');
         createP2Captain.innerText = 'C';
@@ -220,7 +218,7 @@ const playerTwoStart = function(){
             p2Cont.appendChild(createP2Major)
         };   
 };
-const styleGame = function(){
+function styleGame(){
     startGame.style.display = 'none';
     p1Cont.style.display = 'grid';
     p2Cont.style.display = 'grid';
@@ -237,7 +235,7 @@ const styleGame = function(){
     rulesBtn.style.display = 'inline';
     reset.style.display = 'table';
 };
-const rulesRend = function(){
+function rulesRend(){
     p1Cont.style.display = 'none';
     p2Cont.style.display = 'none';
     msgEl.style.display = 'none';
@@ -250,7 +248,7 @@ const rulesRend = function(){
     closeRulesEl.style.display = 'inline-block';
     reset.style.display = 'none';
 };
-const closeRules = function() {
+function closeRules() {
     p1Cont.style.display = 'grid';
     p2Cont.style.display = 'grid';
     msgEl.style.display = 'table';
@@ -262,51 +260,52 @@ const closeRules = function() {
     p2Name.style.display = 'table';
     reset.style.display = 'table';
 }
-const resetPieces = function(){
+function resetPieces(){
     p1Cont.appendChild(createP1Bomb);
     p1Cont.appendChild(createP1Flag);
     p1Cont.appendChild(createP1Captain);
-        for(i=0; i<7; i++){
-        p1Cont.appendChild(createP1Major)
-    }
+    for(i=0; i<7; i++){
+        p1Cont.appendChild(document.querySelector("#p1M"+[i]))
+      } 
     p2Cont.appendChild(createP2Bomb);
     p2Cont.appendChild(createP2Flag);
     p2Cont.appendChild(createP2Captain);
-        for(i=0; i<7; i++){
-        p2Cont.appendChild(createP2Major)
-    }
+    for(i=0; i<7; i++){
+        p2Cont.appendChild(document.querySelector("#p2M"+[i]))
+      } 
     playerOneSetup();
 }
-const confirmReset = function() {
+function confirmReset() {
     let e = confirm('Are You Sure You Want To Reset?');
     if(e === true){
+        stopCountdown();
         resetPieces();
     }
 }
 
 let countdownIntervalId; 
-// let timerId; //push value here?
+let timerId; //push value here?
 
-// function countdown(start) {    
-//     let secondsToCount = start * 60; 
-//     countdownIntervalId = setInterval(timer, 1000);
-//     function timer() { 
-//         const minutes = Math.floor(secondsToCount / 60);
-//         let seconds = secondsToCount - minutes*60;
-//         timerEl.innerHTML = ("Time Left - " + minutes + ':' + `${seconds}`.padStart(2, '0'))
-//         secondsToCount = secondsToCount-1;
-//         if (minutes <= 0 && seconds <= 0) {
-//             clearInterval(countdownIntervalId);
-//             console.log('timerOver')
-//         } 
-//     }
-// }
+function countdown(start) {    
+    let secondsToCount = start * 60; 
+    countdownIntervalId = setInterval(timer, 1000);
+    function timer() { 
+        const minutes = Math.floor(secondsToCount / 60);
+        let seconds = secondsToCount - minutes*60;
+        timerEl.innerHTML = ("Time Left - " + minutes + ':' + `${seconds}`.padStart(2, '0'))
+        secondsToCount = secondsToCount-1;
+        if (minutes <= 0 && seconds <= 0) {
+            clearInterval(countdownIntervalId);
+            console.log('timerOver')
+        } 
+    }
+}
 
-// function stopCountdown(){
-//     if(countdownIntervalId){
-//         clearInterval(countdownIntervalId)
-//     }
-// }
+function stopCountdown(){
+    if(countdownIntervalId){
+        clearInterval(countdownIntervalId)
+    }
+}
 
 function restartCountdown(){
    setInterval(countdown(start), 1000);
@@ -325,13 +324,26 @@ reset.addEventListener('click', confirmReset);
 
 
 function move(char, space) {
-    document.getElementById(char)
-    document.getElementById(space).append(document.getElementById(char))
+    if(space === 'c0r3' || space === 'c1r3' || space === 'c5r3' || space === 'c6r3'){
+        msgEl.innerText = 'You cannot move into the water';
+        clickedEl.style.opacity = 1;
+        clickedEl = null;
+    } else{
+        document.getElementById(char);
+        document.getElementById(space).append(document.getElementById(char));
+        if(clickedEl.innerText === 'M'){
+            console.log('m')
+        }else if(clickedEl.innerText === 'B'){
+            console.log('b')
+        }else if(clickedEl.innerText === 'C'){
+            console.log('c');
+        }else if(clickedEl.innerText === 'F'){
+            console.log('f')
     // console.log('moved');
     //itterate over board to see if its avail - if value is open (0)
+     }
+    }
 }
-
-
 // render()
 
 // document.querySelector("#clickContainer").addEventListener('click', function(e) {
@@ -340,16 +352,35 @@ function move(char, space) {
 //         text = target.textContent || target.innerText;   
 // }, false);
 document.querySelector("#clickContainer").addEventListener('click', function(e){
-if(clickedEl === null && e.target === p1M2){
+if(currentPlayer === p1Name){
+    if(clickedEl === null && moveArrayP1.includes(e.target.id)){
     clickedEl = e.target;
+    clickedEl.style.opacity = .5;
     }else{
         console.log(e.target.id)
        move(clickedEl.id, e.target.id)
+       clickedEl.style.opacity = 1;
        clickedEl = null;
-       updateArray();
-    }
+    //    updateArray();
+       if(p1Cont.childElementCount === 0){ 
+                changePlayer();}
+    }} else {
+        if(clickedEl === null && moveArrayP2.includes(e.target.id)){
+            clickedEl = e.target;
+            clickedEl.style.opacity = .5;
+            }else{
+                console.log(e.target.id)
+               move(clickedEl.id, e.target.id)
+               clickedEl.style.opacity = 1;
+               clickedEl = null;
+            //    updateArray();
+            if(p2Cont.childElementCount === 0){ 
+                changePlayer();}
+    }}
 });
-
+moveArrayP1= ['p1M1', 'p1M2', 'p1M3', 'p1M4', 'p1M5', 'p1M6', 'p1M0', 'p1Bomb', 'p1Flag', 'p1Captain']
+moveArrayP2= ['p2M1', 'p2M2', 'p2M3', 'p2M4', 'p2M5', 'p2M6', 'p2M0', 'p2Bomb', 'p2Flag', 'p2Captain' ]
+             
 
 // first click - cache element to clicked
 // if clicked el is a value, if isnt a value, cache it. (would mean evmpy cache)
@@ -377,16 +408,16 @@ if(clickedEl === null && e.target === p1M2){
 // 8) all majors reset on reset button
 
 
-//set id manulally
 //update 
 
 //pieces have value
 //clicked el then equals null
 //then call render to move the piece on teh board
 //if clicked sqiare has 0, then value has 1
-//1 in UI means major
+
 
 
 
 
 //on render - do move piece, 
+

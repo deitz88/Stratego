@@ -1,12 +1,10 @@
-//         constants          //          
-
 const closePopup = document.getElementById("popupclose");
 const overlay = document.getElementById("overlay");
 const popup = document.getElementById("popup");
 
 const boardObj = document.querySelector("#gameBoard");
-const p1Cont = document.querySelector("#pieceHolder > div.p1Container")
-const p2Cont = document.querySelector("#pieceHolder > div.p2Container")
+const p1Cont = document.querySelector("#pieceHolder > div.p1Container");
+const p2Cont = document.querySelector("#pieceHolder > div.p2Container");
 
 // const p1Major = document.getElementsByClassName('p1Major');
 // const p1Captain = document.getElementById('p1Captain');
@@ -18,15 +16,22 @@ const p2Cont = document.querySelector("#pieceHolder > div.p2Container")
 // const p2Flag = document.getElementById('p2Flag');
 // const p2Bomb = document.getElementById('p2Bomb');
 
-const msgEl = document.querySelector("body > div.container > h2.msg")
-const timerEl = document.querySelector("#countdown")
+const msgEl = document.querySelector("body > div.container > h2.msg");
+const timerEl = document.querySelector("#countdown");
 
-const p1Name = document.querySelector("#pieceHolder > h3.p1Header")
-const p2Name = document.querySelector("#pieceHolder > h3.p2Header")
+const p1Name = document.querySelector("#pieceHolder > h3.p1Header");
+const p2Name = document.querySelector("#pieceHolder > h3.p2Header");
 const rules = document.querySelector("#rules");
 const reset = document.querySelector("#reset");
+
+let startArrayP1=['c1r0', 'c2r0','c3r0','c4r0','c5r0','c1r1','c2r1','c3r1','c4r1','c5r1'];
+let startArrayP2=['c1r5', 'c2r5','c3r5','c4r5','c5r5','c1r6','c2r6','c3r6','c4r6','c5r6'];
+
+
 let clickedEl = null;
-let currentPlayer
+let targetEl = null;
+let currentPlayer;
+let clickedElParent;
 boardEl = [
     [0, 0, 0, 0, 0, 0, 0],  // Column 0
     [0, 0, 0, 0, 0, 0, 0],  // Column 1
@@ -38,37 +43,11 @@ boardEl = [
   ];
   const boardTiles = boardObj.children
 
-// //          state            //
-
-// // location of the pieces
-// // logic for understanding areas that can be moved to
-
-
 // //          cashed elements    //
 
-// // player 1 pieces 
-//         // on board
-//         // 'taken'
-// // player 2 pieces
-//         // on board
-//         // 'taken'
 
 // //          render          //
 
-// boardEl.forEach(function(colArr, colIdx) {
-//     // Iterate over the col array to access the cell vals
-//     colArr.forEach(function(cellVal, rowIdx) {
-//       // Select the correct div for this cellVal
-//       let div = document.getElementById(`c${colIdx}r${rowIdx}`);
-//       div.style.backgroundColor = pieceRender()[cellVal];
-//     });
-//     // <conditional expression> ? <truthy val> : <falsey val>;
-//     markerEls[colIdx].style.visibility = colArr.includes(0) ? 'visible' : 'hidden';
-// console.log('available' + board[i][j])
-//   });
-
-
-// each time loop through
 
 function pieceCheck(){
     for(let i=0; i<boardTiles.length; i++){
@@ -76,7 +55,6 @@ function pieceCheck(){
             const piece = boardTiles[i].children[0].className;
             const colIdx = boardTiles[i].id[1]
             const rowIdx = boardTiles[i].id[3]
-            console.log(piece)
             switch (piece){
                 case 'p1Major':
                     boardEl[rowIdx][colIdx] = 1
@@ -113,50 +91,65 @@ function pieceCheck(){
         }
     }
 }
-    // <conditional expression> ? <truthy val> : <falsey val>;
-//     markerEls[colIdx].style.visibility = colArr.includes(0) ? 'visible' : 'hidden';
-// console.log('available' + board[i][j])
-//   });
+
+// if target square is +-1 row || +-1 column, && space currently is ===0, can move
+// else if target square is +-1 row && +-1 column && value is one of your pieces - no move
+// else if target square is +-1 row && +-1 column && value enemy piece, compare
+//             if higher value lose piece
+//             if lower value, remove opp piece and take space
+//             if opp bomb, lose your piece
+//             if opp flag, win 
+// else, not legal move
+
 
 
   function render(){ //put these in init
     pieceCheck();
 }
 
-// do loop thingy here of board Array, 
-// if value, add piece of that value to that square
-// move('id of cached el', 'then to board ([i][j])'')
-// after loop, set cachedEl to null
-// }
 function resetGame(){
     styleGame();
     resetPieces();
     playerOneSetup();
 }
-// // display moved piece
-// // change msg on board for next player
 
 
-// // functions
-function canMove(){
-    // for(let i=0; i<boardTiles.length; i++){
-    //     if(boardTiles[i].children.length){
-    //         if(boardTiles[i].children.className === 'p1Bomb'){ 
-             for(i=0; i<boardEl.length; i++){
-                for(j=0; j<boardEl.length; j++){
-                    if(boardEl[i][j] === 3){ //do this if 0 //else if do this if 2//
-      console.log('p1Bomb')
-      clickedEl = null;
-                    }else{
-                        return clickedEl
-                //         }
-                //     }
-                // }
-            }
-        }
-    }
+// functions
+function canMove(selectedPiece, targetSquare){
+    console.log(selectedPiece, targetSquare)
+    console.log(clickedElParent)
+    const colIdx = targetSquare[1];
+    const rowIdx = targetSquare[3];
+    // const fromCol = clickedElParent.id[1]
+    // const fromRow = clickedElParent.id[3]
+    console.log(colIdx, rowIdx)
+    // console.log(fromRow, fromCol)
+    if(!boardEl[rowIdx][colIdx]){
+        // if(selected piece square is +- 1 row || =- 1column)
+        move(selectedPiece, targetSquare);
+        clearHighlight();
+    }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) && 
+            boardEl[rowIdx][colIdx] === 1 || boardEl[rowIdx][colIdx] === 2
+            || boardEl[rowIdx][colIdx] === 4 || boardEl[rowIdx][colIdx] === 3){// add in 3 for bomb
+                msgEl.innerText = 'cannot move to your same pieces square';
+                clearHighlight();
+    }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) && 
+            boardEl[rowIdx][colIdx] === 11 || boardEl[rowIdx][colIdx] === 12
+            || boardEl[rowIdx][colIdx] === 13 || boardEl[rowIdx][colIdx] === 14){
+                msgEl.innerText = 'cannot move to your same pieces square';
+                clearHighlight();
+    }else if(boardEl[rowIdx][colIdx] === 3 || boardEl[rowIdx][colIdx] === 13){
+            clickedElParent.removeChild(clickedEl);
+                clearHighlight();
+                alert('you hit a bomb!');
+    }else if(currentPlayer === p1Name && boardEl[rowIdx][colIdx] === 14){
+                alert(p1Name + ' You captured ' + p2Name + "'s flag! You win");
+                clearHighlight();
+                //win function 
+    
+    // }else if(currentPlayer === p1Name && )
 }
-
+}
 function playerOneSetup(){
     // countdown(2);
     currentPlayer = p1Name;
@@ -166,6 +159,11 @@ function playerOneSetup(){
                         //   playerTwoSetup();
       alert(notPlayer.innerText + ', Please look away')
 };
+function clearHighlight(){
+    clickedEl.style.opacity = 1;
+    clickedEl = null;
+    targetEl = null;
+}
 
 function playerTwoSetup(){
     countdown(2);
@@ -196,6 +194,8 @@ function changePlayer() {
     alert(notPlayer.innerText + ', Please look away');
     stopCountdown();
     countdown(.75);
+    clickedEl = null;
+    targetEl = null;
   };
   
 function playerOneStart(){
@@ -290,6 +290,17 @@ function closeRules() {
     reset.style.display = 'table';
 }
 function resetPieces(){
+    // for(i=0; i<boardTiles.length; i++){
+    //     boardObj.removeChild(document.querySelector('.p1Major'));
+    //     boardObj.removeChild(document.querySelector('#p1Flag'));
+    //     boardObj.removeChild(document.querySelector('#p1Bomb'));
+    //     boardObj.removeChild(document.querySelector('#p1Captain'));
+    //     boardObj.removeChild(document.querySelector('.p2Major'));
+    //     boardObj.removeChild(document.querySelector('#p2Flag'));
+    //     boardObj.removeChild(document.querySelector('#p2Bomb'));
+    //     boardObj.removeChild(document.querySelector('#p2Captain'));
+    // }
+    
     p1Cont.appendChild(createP1Bomb);
     p1Cont.appendChild(createP1Flag);
     p1Cont.appendChild(createP1Captain);
@@ -339,19 +350,6 @@ function stopCountdown(){
 function restartCountdown(){
    setInterval(countdown(start), 1000);
 }
-
-// // event listeners 
-
-// event listeners 
-const startGame = document.querySelector("#start");
-startGame.addEventListener('click', init);
-const rulesBtnEl = document.querySelector("#rulesBtn");
-rulesBtnEl.addEventListener('click', rulesRend);
-const closeRulesEl = document.querySelector("#close")
-closeRulesEl.addEventListener('click', closeRules)
-reset.addEventListener('click', confirmReset);
-
-
 function move(char, space) {
     if(space === 'c0r3' || space === 'c1r3' || space === 'c5r3' || space === 'c6r3'){
         msgEl.innerText = 'You cannot move into the water';
@@ -364,124 +362,148 @@ function move(char, space) {
         msgEl.innerText = 'You must move the piece inside the board';   
         clickedEl.style.opacity = 1;
         clickedEl = null;
-    }else{
+
+        }else{
         document.getElementById(char);
         document.getElementById(space).append(document.getElementById(char));
-        if(clickedEl.innerText === 'M'){
-            console.log('m')
-        }else if(clickedEl.innerText === 'B'){
-            console.log('b')
-        }else if(clickedEl.innerText === 'C'){
-            console.log('c');
-        }else if(clickedEl.innerText === 'F'){
-            console.log('f')
-    // console.log('moved');
-    //itterate over board to see if its avail - if value is open (0)
-     }
+
     }
-}
-function moveAfterStart(char, space){
-    if(space === 'c0r3' || space === 'c1r3' || space === 'c5r3' || space === 'c6r3'){
+};
+ 
+function moveAfterStart(selectedPiece, targetSquare){
+    if(targetSquare === 'c0r3' || targetSquare === 'c1r3' || targetSquare === 'c5r3' || targetSquare === 'c6r3'){
         msgEl.innerText = 'You cannot move into the water';
         // setTimeout(function(msg){
         //     popup thing here
         // })
         clickedEl.style.opacity = 1;
         clickedEl = null;
-    }else if(space ===  'clickContainer' || space === 'pieceHolder' || space === 'gameBoard'){
+    }else if(targetSquare ===  'clickContainer' || targetSquare === 'pieceHolder' || targetSquare === 'gameBoard'){
         msgEl.innerText = 'You must move the piece inside the board';   
         clickedEl.style.opacity = 1;
         clickedEl = null;
-    }else if(char ==='p1Bomb' || char ==='p1Flag' || char ==='p2Bomb' || char ==='p2Flag'){
+    }else if(selectedPiece ==='p1Bomb' || selectedPiece ==='p1Flag' || selectedPiece ==='p2Bomb' || selectedPiece ==='p2Flag'){
         msgEl.innerText = 'cannot move a bomb of flag once placed';   
         clickedEl.style.opacity = 1;
         clickedEl = null;
     }else{
-        document.getElementById(char);
-        document.getElementById(space).append(document.getElementById(char));
-        if(clickedEl.innerText === 'M'){
-            console.log('m')
-        }else if(clickedEl.innerText === 'B'){
-            console.log('b')
-        }else if(clickedEl.innerText === 'C'){
-            console.log('c');
-        }else if(clickedEl.innerText === 'F'){
-            console.log('f')
-    // console.log('moved');
-    //itterate over board to see if its avail - if value is open (0)
-     }
-    }
-}
-// render()
-
-// document.querySelector("#clickContainer").addEventListener('click', function(e) {
-//     e = e || window.event;
-//     var target = e.target || e.srcElement,
-//         text = target.textContent || target.innerText;   
-// }, false);
-document.querySelector("#clickContainer").addEventListener('click', function(e){
-if(currentPlayer === p1Name){
-    if(clickedEl === null && pieceArrayP1.includes(e.target.id)){
-    clickedEl = e.target;
-    clickedEl.style.opacity = .5;
-    }else{
-            if(p1Cont.childElementCount > 0 && startArrayP1.includes(e.target.id)){
-            // highlightP1Start();
-            move(clickedEl.id, e.target.id)
-            pieceCheck();
-            clickedEl.style.opacity = 1;
+        const colIdx = targetSquare[1];
+        const rowIdx = targetSquare[3];
+        // const fromCol = clickedElParent.id[1]
+        // const fromRow = clickedElParent.id[3]
+        console.log(colIdx, rowIdx)
+        // console.log(fromRow, fromCol)
+        if(!boardEl[rowIdx][colIdx]){
+            // if(selected piece square is +- 1 row || =- 1column)
+            move(selectedPiece, targetSquare);
+            clearHighlight();
             clickedEl = null;
-                if(p1Cont.childElementCount === 0){
-                    playerTwoSetup();
-                }
-            }if(p1Cont.childElementCount > 0 && startArrayP1.includes(e.target.id) !== true){
+        }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) && 
+                boardEl[rowIdx][colIdx] === 1 || boardEl[rowIdx][colIdx] === 2
+                || boardEl[rowIdx][colIdx] === 4 || boardEl[rowIdx][colIdx] === 3){// add in 3 for bomb
+                    msgEl.innerText = 'cannot move to your same pieces square';
+                    clearHighlight();
+                    clickedEl = null;
+        }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) && 
+                boardEl[rowIdx][colIdx] === 11 || boardEl[rowIdx][colIdx] === 12
+                || boardEl[rowIdx][colIdx] === 13 || boardEl[rowIdx][colIdx] === 14){
+                    msgEl.innerText = 'cannot move to your same pieces square';
+                    clearHighlight();
+                    clickedEl = null;
+        }else if(boardEl[rowIdx][colIdx] === 3 || boardEl[rowIdx][colIdx] === 13){
+                clickedElParent.removeChild(clickedEl);
+                    clearHighlight();
+                    clickedEl = null;
+                    alert('you hit a bomb!');
+        }else if(currentPlayer === p1Name && boardEl[rowIdx][colIdx] === 14){
+                    alert(p1Name + ' You captured ' + p2Name + "'s flag! You win");
+                    clickedEl = null;
+                    clearHighlight();
+                    //win function 
+        }  
+      }  // }else if(currentPlayer === p1Name && 
+};
+// // event listeners 
+
+const startGame = document.querySelector("#start");
+startGame.addEventListener('click', init);
+const rulesBtnEl = document.querySelector("#rulesBtn");
+rulesBtnEl.addEventListener('click', rulesRend);
+const closeRulesEl = document.querySelector("#close")
+closeRulesEl.addEventListener('click', closeRules)
+reset.addEventListener('click', confirmReset);
+
+
+
+document.querySelector("#clickContainer").addEventListener('click', function(e){
+    if(currentPlayer === p1Name){
+        if(clickedEl === null && pieceArrayP1.includes(e.target.id)){
+                clickedEl = e.target;
+                clickedElParent = clickedEl.parentElement;
+                clickedEl.style.opacity = .5
+                if(p1Cont.childElementCount > 0 && startArrayP1.includes(e.target.id) !== true){ 
                     clickedEl.style.opacity = 1;
                     clickedEl = null;
+                    render();
                     msgEl.innerText = 'must move in the beginning squares highlighted'
-                }
-        }if(p1Cont.childElementCount === 0){ 
-                moveAfterStart(clickedEl.id, e.target.id)
-                pieceCheck();
-                clickedEl.style.opacity = 1;
-                clickedEl = null;
-                if(p2Cont.childElementCount !== 0){
-                    playerTwoSetup();
-                }else if(p1Cont.childElementCount === 0){
+                }else if(p1Cont.childElementCount > 0 && startArrayP1.includes(e.target.id)){
+                        targetEl = e.target.id;
+                        canMove(clickedEl.id, targetEl);//working on this
+                        render();
+                        clearHighlight();
+                            if(p1Cont.childElementCount === 0){ //wont need this for p2
+                                        clearHighlight();
+                                        playerTwoSetup();
+                                        render();
+                                    }
+                }else if(p1Cont.childElementCount === 0){ 
+                    targetEl = e.target.id
+                    moveAfterStart(clickedEl.id, targetEl);//potentially weird errors, but still fires
+                    render();
+                    clearHighlight();
                     changePlayer();
                     }
+            }else{
+                clickedEl.style.opacity = .5;
+                clickedEl = null;
+                msgEl.innerText = 'You must select one of your pieces'
+            }
+    }else if(currentPlayer === p2Name) {//player two turn
+                if(clickedEl === null && pieceArrayP2.includes(e.target.id)){
+                    clickedEl = e.target;
+                    clickedElParent = clickedEl.parentElement;
+                    clickedEl.style.opacity = .5
+                    if(p2Cont.childElementCount > 0 && startArrayP2.includes(e.target.id) !== true){ 
+                        clickedEl.style.opacity = 1;
+                        clickedEl = null;
+                        render();
+                        msgEl.innerText = 'must move in the beginning squares highlighted'
+                    }else if(p2Cont.childElementCount > 0 && startArrayP2.includes(e.target.id)){
+                            targetEl = e.target.id;
+                            canMove(clickedEl.id, targetEl);//working on this
+                            render();
+                            clearHighlight();
+                                if(p2Cont.childElementCount === 0){ //wont need this for p2
+                                    clearHighlight();
+                                    changePlayer();
+                                    render();
+                                }
+                    }else if(p2Cont.childElementCount === 0){ 
+                        targetEl = e.target.id
+                        moveAfterStart(clickedEl.id, targetEl);//potentially weird errors, but still fires
+                        render();
+                        clearHighlight();
+                        changePlayer();
+                                }
+                }else{
+                    clickedEl.style.opacity = .5;
+                    clickedEl = null;
+                    msgEl.innerText = 'You must select one of your pieces'
                 }
-            
-    } else {
-        if(clickedEl === null && pieceArrayP2.includes(e.target.id)){
-            clickedEl = e.target;
-            clickedEl.style.opacity = .5;
-        }else{
-            if(p2Cont.childElementCount > 0 && startArrayP2.includes(e.target.id)){
-               move(clickedEl.id, e.target.id)
-               pieceCheck();
-               clickedEl.style.opacity = 1;
-               clickedEl = null;
-                if(p2Cont.childElementCount === 0){
-                    changePlayer();}
-            }if(p2Cont.childElementCount > 0 && startArrayP2.includes(e.target.id) !== true){
-                clickedEl.style.opacity = 1;
-                clickedEl = null;
-                msgEl.innerText = 'must move in the beginning squares highlighted'
-            }
-            
-            if(p2Cont.childElementCount === 0){ 
-                moveAfterStart(clickedEl.id, e.target.id)
-                pieceCheck();
-                clickedEl.style.opacity = 1;
-                clickedEl = null;
-                changePlayer();
-            }
-        }
     }
 });
-  
-pieceArrayP1= ['p1M1', 'p1M2', 'p1M3', 'p1M4', 'p1M5', 'p1M6', 'p1M0', 'p1Bomb', 'p1Flag', 'p1Captain']
-pieceArrayP2= ['p2M1', 'p2M2', 'p2M3', 'p2M4', 'p2M5', 'p2M6', 'p2M0', 'p2Bomb', 'p2Flag', 'p2Captain' ]
+pieceArrayP1= ['p1M1', 'p1M2', 'p1M3', 'p1M4', 'p1M5', 'p1M6', 'p1M0', 'p1Bomb', 'p1Flag', 'p1Captain'];
+pieceArrayP2= ['p2M1', 'p2M2', 'p2M3', 'p2M4', 'p2M5', 'p2M6', 'p2M0', 'p2Bomb', 'p2Flag', 'p2Captain'];
 startArrayP1=['c1r0', 'c2r0','c3r0','c4r0','c5r0','c1r1','c2r1','c3r1','c4r1','c5r1']
 startArrayP2=['c1r5', 'c2r5','c3r5','c4r5','c5r5','c1r6','c2r6','c3r6','c4r6','c5r6']
              
@@ -521,7 +543,94 @@ startArrayP2=['c1r5', 'c2r5','c3r5','c4r5','c5r5','c1r6','c2r6','c3r6','c4r6','c
 
 
 
+// remember, you have access to your click event (whatever the user clicked)
 
+
+// and you have access to the board array (what’s currently recorded on the board)
 
 //on render - do move piece, 
 
+
+
+
+
+
+
+
+
+
+// document.querySelector("#clickContainer").addEventListener('click', function(e){
+//     if(currentPlayer === p1Name){
+//         if(clickedEl === null && pieceArrayP1.includes(e.target.id)){
+//         clickedEl = e.target;
+//         clickedElParent = clickedEl.parentElement;
+//         clickedEl.style.opacity = .5;
+//         }else{
+//                 if(p1Cont.childElementCount > 0 && startArrayP1.includes(e.target.id)){
+//                 targetEl = e.target.id;
+//                 canMove(clickedEl.id, targetEl);//working on this
+//                 render();
+//                 clickedEl = null;
+//                     if(p1Cont.childElementCount === 0){
+//                         // clearHighlight();
+//                         clickedEl = null;
+//                         playerTwoSetup();
+//                         render();
+//                         }
+//                 }if(p1Cont.childElementCount > 0 && startArrayP1.includes(e.target.id) !== true){
+//                         clearHighlight();
+//                         render();
+//                         msgEl.innerText = 'must move in the beginning squares highlighted'
+//                             };
+//                             clickedEl = null
+//                 }if(p1Cont.childElementCount === 0){ 
+//                     targetEl = e.target.id
+//                     moveAfterStart(clickedEl.id, targetEl);//potentially weird errors, but still fires
+//                     clickedEl = null;
+//                     render();
+//                     // clearHighlight();
+//                     clickedEl = null;
+//                     if(p2Cont.childElementCount !== 0){
+//                         clickedEl = null;
+//                         playerTwoSetup();
+//                         render();
+//                     }else if(p1Cont.childElementCount === 0){
+//                         clickedEl = null;
+//                         changePlayer();
+//                         render();
+//                         }
+//                     };
+                
+//         }else{
+//                 if(clickedEl === null && pieceArrayP2.includes(e.target.id)){
+//                     clickedEl = e.target;
+//                     clickedElParent = clickedEl.id.parentElement;
+//                     clickedEl.style.opacity = .5;
+//                 }else{
+//                     if(p2Cont.childElementCount > 0 && startArrayP2.includes(e.target.id)){
+//                         targetEl = e.target.id;
+//                     canMove(clickedEl.id, targetEl);
+//                     clickedEl = null;
+//                     render();
+//                     // clearHighlight();
+//                         if(p2Cont.childElementCount === 0){
+//                             clickedEl = null;
+//                             changePlayer();}
+//                             clickedEl = null;
+//                         }//if(p2Cont.childElementCount > 0 && startArrayP2.includes(e.target.id) !== true){
+//                             // clickedEl=null;
+//                             // clearHighlight();
+//                             // msgEl.innerText = 'must move in the beginning squares highlighted'
+//                             //     }            
+//                         if(p2Cont.childElementCount === 0){ 
+//                             targetEl = e.target.id;
+//                             moveAfterStart(clickedEl.id, targetEl);
+//                             render();
+//                             // clearHighlight();
+//                             clickedEl = null;
+//                             changePlayer();
+//                             clickedEl = null;
+//                 }
+//             }
+//         }
+//     });

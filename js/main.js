@@ -96,7 +96,7 @@ function p1Hide(){
         if(boardTiles[i].childElementCount > 0){
             if(boardTiles[i].firstElementChild.id[1] === '1'){
                 if(boardTiles[i].firstElementChild.id[2] === 'M'){
-                    boardTiles[i].firstElementChild.innerText = '?';
+                    boardTiles[i].firstElementChild.innerText = '';
                 }
                 
             }
@@ -106,7 +106,7 @@ function p1Hide(){
         if(boardTiles[i].childElementCount > 0){
             if(boardTiles[i].firstElementChild.id[1] === '1'){
                 if(boardTiles[i].firstElementChild.id[2] === 'C'){
-                    boardTiles[i].firstElementChild.innerText = '?';
+                    boardTiles[i].firstElementChild.innerText = '';
                 }
                 
             }
@@ -116,7 +116,7 @@ function p1Hide(){
         if(boardTiles[i].childElementCount > 0){
             if(boardTiles[i].firstElementChild.id[1] === '1'){
                 if(boardTiles[i].firstElementChild.id[2] === 'B'){
-                    boardTiles[i].firstElementChild.innerText = '?';
+                    boardTiles[i].firstElementChild.innerText = '';
                 }
                 
             }
@@ -126,7 +126,7 @@ function p1Hide(){
         if(boardTiles[i].childElementCount > 0){
             if(boardTiles[i].firstElementChild.id[1] === '1'){
                 if(boardTiles[i].firstElementChild.id[2] === 'F'){
-                    boardTiles[i].firstElementChild.innerText = '?';
+                    boardTiles[i].firstElementChild.innerText = '';
                 }
                 
             }
@@ -138,7 +138,7 @@ function p2Hide(){
         if(boardTiles[i].childElementCount > 0){
             if(boardTiles[i].firstElementChild.id[1] === '2'){
                 if(boardTiles[i].firstElementChild.id[2] === 'M'){
-                    boardTiles[i].firstElementChild.innerText = '?';
+                    boardTiles[i].firstElementChild.innerText = '';
                 }
                 
             }
@@ -148,7 +148,7 @@ function p2Hide(){
         if(boardTiles[i].childElementCount > 0){
             if(boardTiles[i].firstElementChild.id[1] === '2'){
                 if(boardTiles[i].firstElementChild.id[2] === 'C'){
-                    boardTiles[i].firstElementChild.innerText = '?';
+                    boardTiles[i].firstElementChild.innerText = '';
                 }
                 
             }
@@ -158,7 +158,7 @@ function p2Hide(){
         if(boardTiles[i].childElementCount > 0){
             if(boardTiles[i].firstElementChild.id[1] === '2'){
                 if(boardTiles[i].firstElementChild.id[2] === 'B'){
-                    boardTiles[i].firstElementChild.innerText = '?';
+                    boardTiles[i].firstElementChild.innerText = '';
                 }
                 
             }
@@ -168,7 +168,7 @@ function p2Hide(){
         if(boardTiles[i].childElementCount > 0){
             if(boardTiles[i].firstElementChild.id[1] === '2'){
                 if(boardTiles[i].firstElementChild.id[2] === 'F'){
-                    boardTiles[i].firstElementChild.innerText = '?';
+                    boardTiles[i].firstElementChild.innerText = '';
                 }
                 
             }
@@ -303,17 +303,25 @@ function canMove(selectedPiece, targetSquare){
 function playerOneSetup(){
     countdown(2);
 
-   document.querySelector('#p2M0').innerText = '?';
-   document.querySelector('#p2M1').innerText = '?';
-   document.querySelector('#p2M2').innerText = '?';
-   document.querySelector('#p2M3').innerText = '?';
-   document.querySelector('#p2M4').innerText = '?';
-   document.querySelector('#p2M5').innerText = '?';
-   document.querySelector('#p2M6').innerText = '?';
-   document.querySelector('#p2Captain').innerText = '?';
-   document.querySelector('#p2Bomb').innerText = '?';
-   document.querySelector('#p2Flag').innerText = '?';
-
+   document.querySelector('#p2M0').innerText = '';
+   document.querySelector('#p2M1').innerText = '';
+   document.querySelector('#p2M2').innerText = '';
+   document.querySelector('#p2M3').innerText = '';
+   document.querySelector('#p2M4').innerText = '';
+   document.querySelector('#p2M5').innerText = '';
+   document.querySelector('#p2M6').innerText = '';
+   document.querySelector('#p2Captain').innerText = '';
+   document.querySelector('#p2Bomb').innerText = '';
+   document.querySelector('#p2Flag').innerText = '';
+   for(i=0; i<boardTiles.length; i++){
+       if(startArrayP1.includes(boardTiles[i].id)){
+           boardTiles[i].style.opacity = 1;
+       }else{
+           boardTiles[i].style.opacity = .5;
+       }
+    }
+    clickedEl = null;
+    targetEl = null;
     currentPlayer = p1Name;
     notPlayer = p2Name;
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
@@ -340,6 +348,13 @@ function playerTwoSetup(){
    document.querySelector('#p2Captain').innerText = 'C';
    document.querySelector('#p2Bomb').innerText = 'B';
    document.querySelector('#p2Flag').innerText = 'F';
+   for(i=0; i<boardTiles.length; i++){
+    if(startArrayP2.includes(boardTiles[i].id)){
+        boardTiles[i].style.opacity = 1;
+    }else{
+        boardTiles[i].style.opacity = .5;
+    }
+ }
     currentPlayer = p2Name;
     notPlayer = p1Name;
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
@@ -372,6 +387,10 @@ function changePlayer() {
     countdown(.75);
     clickedEl = null;
     targetEl = null;
+    for(i=0; i<boardTiles.length; i++){
+            boardTiles[i].style.opacity = 1;
+        }
+     
   };
   
 function playerOneStart(){
@@ -544,9 +563,6 @@ function restartCountdown(){
 function move(char, space) {
     if(space === 'c0r3' || space === 'c1r3' || space === 'c5r3' || space === 'c6r3'){
         msgEl.innerText = 'You cannot move into the water';
-        // setTimeout(function(msg){
-        //     popup thing here
-        // })
         clickedEl.style.opacity = 1;
         clickedEl = null;
     }else if(space ===  'clickContainer' || space === 'pieceHolder' || space === 'gameBoard'){
@@ -586,7 +602,7 @@ function moveAfterStart(selectedPiece, targetSquare){
                     return true;
                 }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) && 
                         (boardEl[rowIdx][colIdx] === 1 || boardEl[rowIdx][colIdx] === 2
-                        || boardEl[rowIdx][colIdx] === 4 || boardEl[rowIdx][colIdx] === 3)){// add in 3 for bomb
+                        || boardEl[rowIdx][colIdx] === 4 || boardEl[rowIdx][colIdx] === 3)){
                             subMsg.innerText = 'cannot move to your same pieces square';
                             return false;
                 }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) 
@@ -617,7 +633,7 @@ function moveAfterStart(selectedPiece, targetSquare){
                             subMsg.innerText = 'You got his piece! Good work, Commander';
                             return true;             
                 }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) && 
-                        boardEl[rowIdx][colIdx] === 13){// add in 3 for bomb
+                        boardEl[rowIdx][colIdx] === 13){
                             clickedElParent.removeChild(clickedEl);
                             clearHighlight();
                             subMsg.innerText = 'BOOOOOM!!!! ......you hit a bomb';

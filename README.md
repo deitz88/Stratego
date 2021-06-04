@@ -13,22 +13,21 @@ This was the main game that he and i played growing up, as i was learning how to
 <h3>Start page with rules</h3>
  
  
-<h3>Start of game with prompt for name</h3>
- 
- 
- 
 <h3>rules during gameplay, if needed</h3>
+![Screen Shot 2021-06-03 at 11 00 30 PM](https://user-images.githubusercontent.com/16360065/120754812-03b7aa80-c4c2-11eb-86c4-128414d7a2db.png)
   
   
 <h3>return to game play middle of game</h3>
-   
+ ![Screen Shot 2021-06-03 at 10 58 46 PM](https://user-images.githubusercontent.com/16360065/120754844-0c0fe580-c4c2-11eb-8476-1592c6c3091f.png)
+
+  
    
 <h3>winner message</h3>
+![Screen Shot 2021-06-03 at 9 22 37 PM](https://user-images.githubusercontent.com/16360065/120754856-103c0300-c4c2-11eb-88b6-812df26ea616.png)
 
 
-<h3>reset function</h3>
-
-
+</br>
+</br>
 <h2>Wireframe</h2>
 ![Image](https://user-images.githubusercontent.com/16360065/120261063-ff825780-c24b-11eb-9676-14454a3b4995.png)></br>
 ![Web 1920 – 1](https://user-images.githubusercontent.com/16360065/120261099-0f01a080-c24c-11eb-8b94-1f46706c69ce.png)

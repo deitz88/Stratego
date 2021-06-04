@@ -1,41 +1,37 @@
+// - - - - Constants - - - - //
+
 const closePopup = document.getElementById("popupclose");
 const overlay = document.getElementById("overlay");
 const popup = document.getElementById("popup");
-
 const boardObj = document.querySelector("#gameBoard");
 const p1Cont = document.querySelector("#pieceHolder > div.p1Container");
 const p2Cont = document.querySelector("#pieceHolder > div.p2Container");
-
-// const p1Major = document.getElementsByClassName('p1Major');
-// const p1Captain = document.getElementById('p1Captain');
-// const p1Flag = document.getElementById('p1Flag');
-// const p1Bomb = document.querySelector("#p1Bomb");
-
-// const p2Major = document.getElementsByClassName('p2Major');
-// const p2Captain = document.getElementById('p2Captain');
-// const p2Flag = document.getElementById('p2Flag');
-// const p2Bomb = document.getElementById('p2Bomb');
-
 const msgEl = document.querySelector("body > div.container > h2.msg");
 const subMsg = document.querySelector("body > div.container > h3");
 const timerEl = document.querySelector("#countdown");
-
 const p1Name = document.querySelector("#pieceHolder > h3.p1Header");
 const p2Name = document.querySelector("#pieceHolder > h3.p2Header");
 const rules = document.querySelector("#rules");
 const reset = document.querySelector("#reset");
-const taken = document.querySelector(".takenPieces");
-
-let startArrayP1=['c1r0', 'c2r0','c3r0','c4r0','c5r0','c1r1','c2r1','c3r1','c4r1','c5r1'];
-let startArrayP2=['c1r5', 'c2r5','c3r5','c4r5','c5r5','c1r6','c2r6','c3r6','c4r6','c5r6'];
-let p1Cap = ['p1Captain']
-let p2Cap = ['p2Captain']
+const startGame = document.querySelector("#start");
+const rulesBtnEl = document.querySelector("#rulesBtn");
+const closeRulesEl = document.querySelector("#close")
+const pieceArrayP1= ['p1M1', 'p1M2', 'p1M3', 'p1M4', 'p1M5', 'p1M6', 'p1M0', 'p1Bomb', 'p1Flag', 'p1Captain'];
+const pieceArrayP2= ['p2M1', 'p2M2', 'p2M3', 'p2M4', 'p2M5', 'p2M6', 'p2M0', 'p2Bomb', 'p2Flag', 'p2Captain'];
+const startArrayP1=['c1r0', 'c2r0','c3r0','c4r0','c5r0','c1r1','c2r1','c3r1','c4r1','c5r1']
+const startArrayP2=['c1r5', 'c2r5','c3r5','c4r5','c5r5','c1r6','c2r6','c3r6','c4r6','c5r6']
+const p1MajorArray= ['p1M1', 'p1M2', 'p1M3', 'p1M4', 'p1M5', 'p1M6', 'p1M0']
+const p2MajorArray= ['p2M1', 'p2M2', 'p2M3', 'p2M4', 'p2M5', 'p2M6', 'p2M0']
+const p1Cap = ['p1Captain']
+const p2Cap = ['p2Captain']
 
 
 let clickedEl = null;
 let targetEl = null;
 let currentPlayer;
 let clickedElParent;
+let countdownIntervalId; 
+
 boardEl = [
     [0, 0, 0, 0, 0, 0, 0],  // Column 0
     [0, 0, 0, 0, 0, 0, 0],  // Column 1
@@ -47,13 +43,10 @@ boardEl = [
   ];
   const boardTiles = boardObj.children
 
-// //          cashed elements    //
 
-
-// //          render          //
-
-
+// - - - - Functions - - - - //
 function updateBoard(){
+    checkTie();
     for(let i=0; i<boardTiles.length; i++){
         if(boardTiles[i].children.length){
             const piece = boardTiles[i].children[0].className;
@@ -95,72 +88,181 @@ function updateBoard(){
         }
     }
 }
+function checkTie(){
+}
 
 function p1Hide(){
-document.querySelector('#p1M0').innerText = '?';
-document.querySelector('#p1M1').innerText = '?';
-document.querySelector('#p1M2').innerText = '?';
-document.querySelector('#p1M3').innerText = '?';
-document.querySelector('#p1M4').innerText = '?';
-document.querySelector('#p1M5').innerText = '?';
-document.querySelector('#p1M6').innerText = '?';
-document.querySelector('#p1Captain').innerText = '?';
-document.querySelector('#p1Bomb').innerText = '?';
-document.querySelector('#p1Flag').innerText = '?';
+    for(i=0; i<boardTiles.length; i++){ //majors
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '1'){
+                if(boardTiles[i].firstElementChild.id[2] === 'M'){
+                    boardTiles[i].firstElementChild.innerText = '?';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //captain
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '1'){
+                if(boardTiles[i].firstElementChild.id[2] === 'C'){
+                    boardTiles[i].firstElementChild.innerText = '?';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //bomb
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '1'){
+                if(boardTiles[i].firstElementChild.id[2] === 'B'){
+                    boardTiles[i].firstElementChild.innerText = '?';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //flag
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '1'){
+                if(boardTiles[i].firstElementChild.id[2] === 'F'){
+                    boardTiles[i].firstElementChild.innerText = '?';
+                }
+                
+            }
+        }
+    }
 }
-
-
 function p2Hide(){
-document.querySelector('#p2M0').innerText = '?';
-document.querySelector('#p2M1').innerText = '?';
-document.querySelector('#p2M2').innerText = '?';
-document.querySelector('#p2M3').innerText = '?';
-document.querySelector('#p2M4').innerText = '?';
-document.querySelector('#p2M5').innerText = '?';
-document.querySelector('#p2M6').innerText = '?';
-document.querySelector('#p2Captain').innerText = '?';
-document.querySelector('#p2Bomb').innerText = '?';
-document.querySelector('#p2Flag').innerText = '?';
+    for(i=0; i<boardTiles.length; i++){ //majors
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '2'){
+                if(boardTiles[i].firstElementChild.id[2] === 'M'){
+                    boardTiles[i].firstElementChild.innerText = '?';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //captain
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '2'){
+                if(boardTiles[i].firstElementChild.id[2] === 'C'){
+                    boardTiles[i].firstElementChild.innerText = '?';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //bomb
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '2'){
+                if(boardTiles[i].firstElementChild.id[2] === 'B'){
+                    boardTiles[i].firstElementChild.innerText = '?';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //flag
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '2'){
+                if(boardTiles[i].firstElementChild.id[2] === 'F'){
+                    boardTiles[i].firstElementChild.innerText = '?';
+                }
+                
+            }
+        }
+    }
 }
-
 
 function p1Show(){
-    document.querySelector('#p1M0').innerText = 'M';
-    document.querySelector('#p1M1').innerText = 'M';
-    document.querySelector('#p1M2').innerText = 'M';
-    document.querySelector('#p1M3').innerText = 'M';
-    document.querySelector('#p1M4').innerText = 'M';
-    document.querySelector('#p1M5').innerText = 'M';
-    document.querySelector('#p1M6').innerText = 'M';
-    document.querySelector('#p1Captain').innerText = 'C';
-    document.querySelector('#p1Bomb').innerText = 'B';
-    document.querySelector('#p1Flag').innerText = 'F';
+    for(i=0; i<boardTiles.length; i++){ //majors
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '1'){
+                if(boardTiles[i].firstElementChild.id[2] === 'M'){
+                    boardTiles[i].firstElementChild.innerText = 'M';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //captain
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '1'){
+                if(boardTiles[i].firstElementChild.id[2] === 'C'){
+                    boardTiles[i].firstElementChild.innerText = 'C';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //bomb
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '1'){
+                if(boardTiles[i].firstElementChild.id[2] === 'B'){
+                    boardTiles[i].firstElementChild.innerText = 'B';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //flag
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '1'){
+                if(boardTiles[i].firstElementChild.id[2] === 'F'){
+                    boardTiles[i].firstElementChild.innerText = 'F';
+                }
+                
+            }
+        }
+    }
     p2Hide();
     }
 
-
 function p2Show(){
-    document.querySelector('#p2M0').innerText = 'M';
-    document.querySelector('#p2M1').innerText = 'M';
-    document.querySelector('#p2M2').innerText = 'M';
-    document.querySelector('#p2M3').innerText = 'M';
-    document.querySelector('#p2M4').innerText = 'M';
-    document.querySelector('#p2M5').innerText = 'M';
-    document.querySelector('#p2M6').innerText = 'M';
-    document.querySelector('#p2Captain').innerText = 'C';
-    document.querySelector('#p2Bomb').innerText = 'B';
-    document.querySelector('#p2Flag').innerText = 'F';
+    for(i=0; i<boardTiles.length; i++){ //majors
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '2'){
+                if(boardTiles[i].firstElementChild.id[2] === 'M'){
+                    boardTiles[i].firstElementChild.innerText = 'M';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //captain
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '2'){
+                if(boardTiles[i].firstElementChild.id[2] === 'C'){
+                    boardTiles[i].firstElementChild.innerText = 'C';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //bomb
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '2'){
+                if(boardTiles[i].firstElementChild.id[2] === 'B'){
+                    boardTiles[i].firstElementChild.innerText = 'B';
+                }
+                
+            }
+        }
+    }
+    for(i=0; i<boardTiles.length; i++){ //flag
+        if(boardTiles[i].childElementCount > 0){
+            if(boardTiles[i].firstElementChild.id[1] === '2'){
+                if(boardTiles[i].firstElementChild.id[2] === 'F'){
+                    boardTiles[i].firstElementChild.innerText = 'F';
+                }
+                
+            }
+        }
+    }
     p1Hide();
     }
-// if target square is +-1 row || +-1 column, && space currently is ===0, can move
-// else if target square is +-1 row && +-1 column && value is one of your pieces - no move
-// else if target square is +-1 row && +-1 column && value enemy piece, compare
-//             if higher value lose piece
-//             if lower value, remove opp piece and take space
-//             if opp bomb, lose your piece
-//             if opp flag, win 
-// else, not legal move
-
 
 function resetGame(){
     styleGame();
@@ -168,30 +270,23 @@ function resetGame(){
     playerOneSetup();
 }
 
-
-// functions
 function canMove(selectedPiece, targetSquare){
-    console.log(targetSquare)
     const colIdx = targetSquare[1];
     const rowIdx = targetSquare[3];
-    // const fromCol = clickedElParent.id[1]
-    // const fromRow = clickedElParent.id[3]
-    // console.log(fromRow, fromCol)
     if(!boardEl[rowIdx][colIdx]){
-        // if(selected piece square is +- 1 row || =- 1column)
         move(selectedPiece, targetSquare);
         clearHighlight();
         return true;
     }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) && 
             boardEl[rowIdx][colIdx] === 1 || boardEl[rowIdx][colIdx] === 2
             || boardEl[rowIdx][colIdx] === 4 || boardEl[rowIdx][colIdx] === 3){// add in 3 for bomb
-                msgEl.innerText = 'cannot move to your same pieces square';
+                subMsg.innerText = 'cannot move to your same pieces square';
                 clearHighlight();
                 return false;
     }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) && 
             boardEl[rowIdx][colIdx] === 11 || boardEl[rowIdx][colIdx] === 12
             || boardEl[rowIdx][colIdx] === 13 || boardEl[rowIdx][colIdx] === 14){
-                msgEl.innerText = 'cannot move to your same pieces square';
+                subMsg.innerText = 'cannot move to your same pieces square';
                 clearHighlight();
                 return false;
     }else if(boardEl[rowIdx][colIdx] === 3 || boardEl[rowIdx][colIdx] === 13){
@@ -200,20 +295,29 @@ function canMove(selectedPiece, targetSquare){
                 alert('you hit a bomb!');
                 return true;
     }else if(currentPlayer === p1Name && boardEl[rowIdx][colIdx] === 14){
-                alert(p1Name + ' You captured ' + p2Name + "'s flag! You win");
+                alert('You Won!');
                 clearHighlight();
-                //win function 
-    
-    // }else if(currentPlayer === p1Name && )
+
 }
 }
 function playerOneSetup(){
     countdown(2);
+
+   document.querySelector('#p2M0').innerText = '?';
+   document.querySelector('#p2M1').innerText = '?';
+   document.querySelector('#p2M2').innerText = '?';
+   document.querySelector('#p2M3').innerText = '?';
+   document.querySelector('#p2M4').innerText = '?';
+   document.querySelector('#p2M5').innerText = '?';
+   document.querySelector('#p2M6').innerText = '?';
+   document.querySelector('#p2Captain').innerText = '?';
+   document.querySelector('#p2Bomb').innerText = '?';
+   document.querySelector('#p2Flag').innerText = '?';
+
     currentPlayer = p1Name;
     notPlayer = p2Name;
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
                     + ' --- You have two minutes to setup your pieces');       
-                        //   playerTwoSetup();
       alert(notPlayer.innerText + ', Please look away')
 };
 function clearHighlight(){
@@ -225,7 +329,17 @@ function clearHighlight(){
 function playerTwoSetup(){
     stopCountdown();
     countdown(2);
-    // p2Show();
+    p2Show();
+   document.querySelector('#p2M0').innerText = 'M';
+   document.querySelector('#p2M1').innerText = 'M';
+   document.querySelector('#p2M2').innerText = 'M';
+   document.querySelector('#p2M3').innerText = 'M';
+   document.querySelector('#p2M4').innerText = 'M';
+   document.querySelector('#p2M5').innerText = 'M';
+   document.querySelector('#p2M6').innerText = 'M';
+   document.querySelector('#p2Captain').innerText = 'C';
+   document.querySelector('#p2Bomb').innerText = 'B';
+   document.querySelector('#p2Flag').innerText = 'F';
     currentPlayer = p2Name;
     notPlayer = p1Name;
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
@@ -239,17 +353,17 @@ function init(){
     playerTwoStart();
     playerOneSetup();
     currentPlayer = p1Name;
-    // p1Show();
+    p1Show();
 }
 function changePlayer() {
     if (currentPlayer === p1Name) {
       currentPlayer = p2Name;
       notPlayer = p1Name;
-    //   p2Show();
+      p2Show();
     } else {
       currentPlayer = p1Name;
       notPlayer = p2Name;
-    //   p1Show();
+      p1Show();
     }
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText
                      + ' . you have 45 seconds to make a move');
@@ -261,6 +375,7 @@ function changePlayer() {
   };
   
 function playerOneStart(){
+    subMsg.innerText = "Good Luck"
     createP1Captain= document.createElement('div');
        createP1Captain.setAttribute('id', 'p1Captain');
        createP1Captain.setAttribute('class', 'p1Captain')
@@ -314,7 +429,7 @@ function styleGame(){
     p1Cont.style.display = 'grid';
     p2Cont.style.display = 'grid';
     msgEl.style.display = 'table';
-    timerEl.style.display = 'table';
+    timerEl.style.display = 'none';
     boardObj.style.display = 'grid';
     p1Name.innerText = prompt('First Commander, what is your name?');
     p2Name.innerText = prompt('Second Commander, what is your name?')
@@ -325,7 +440,7 @@ function styleGame(){
     rules.style.display = 'none';
     rulesBtn.style.display = 'inline';
     reset.style.display = 'table';
-    // taken.style.display = 'grid';
+    subMsg.style.display = 'table';
 };
 function rulesRend(){
     p1Cont.style.display = 'none';
@@ -339,37 +454,60 @@ function rulesRend(){
     p2Name.style.display = "none";
     closeRulesEl.style.display = 'inline-block';
     reset.style.display = 'none';
-    // taken.style.display = 'none';
+    subMsg.style.display = 'none';
+
 };
+function win(){
+    p1Cont.style.display = 'none';
+    p2Cont.style.display = 'none';
+    msgEl.style.display = 'table';
+    timerEl.style.display = 'none';
+    boardObj.style.display = 'none';
+    rules.style.display = 'none';
+    rulesBtn.style.display = 'none';
+    p1Name.style.display = "none";
+    p2Name.style.display = "none";
+    closeRulesEl.style.display = 'inline-block';
+    reset.style.display = 'table';
+    subMsg.style.display = 'table';
+    msgEl.innerText = 'Congradulations on your victory,'
+    subMsg.innerText = 'Play again? .....';
+
+}
 function closeRules() {
     p1Cont.style.display = 'grid';
     p2Cont.style.display = 'grid';
     msgEl.style.display = 'table';
-    timerEl.style.display = 'table';
+    timerEl.style.display = 'none';
     boardObj.style.display = 'grid';
     rules.style.display = 'none';
     rulesBtn.style.display = 'inline';
     p1Name.style.display = 'table';
     p2Name.style.display = 'table';
     reset.style.display = 'table';
-    // taken.style.display = 'grid';
+    subMsg.style.display = 'table';
 
 }
 function resetPieces(){
-
-    p1Cont.appendChild(createP1Bomb);
-    p1Cont.appendChild(createP1Flag);
-    p1Cont.appendChild(createP1Captain);
-    for(i=0; i<7; i++){
-        p1Cont.appendChild(document.querySelector("#p1M"+[i]))
-      } 
-    p2Cont.appendChild(createP2Bomb);
-    p2Cont.appendChild(createP2Flag);
-    p2Cont.appendChild(createP2Captain);
-    for(i=0; i<7; i++){
-        p2Cont.appendChild(document.querySelector("#p2M"+[i]))
-      } 
-    playerOneSetup();
+    
+    for(let i=0; i<boardTiles.length; i++){
+        if(boardTiles[i].childElementCount > 0){
+            boardTiles[i].removeChild(boardTiles[i].firstElementChild)
+        }
+    }
+    for(let i=0; i<13; i++){
+        if(p1Cont.childElementCount > 0){
+            p1Cont.removeChild(p1Cont.firstElementChild)
+        }
+    }
+    for(let i=0; i<13; i++){
+        if(p2Cont.childElementCount > 0){
+            p2Cont.removeChild(p2Cont.firstElementChild)
+        }
+    }
+    clickedElParent = null;
+    targetEl = null;
+    init();
 }
 function confirmReset() {
     let e = confirm('Are You Sure You Want To Reset?');
@@ -378,9 +516,6 @@ function confirmReset() {
         resetPieces();
     }
 }
-
-let countdownIntervalId; 
-// let timerId; //push value here?
 
 function countdown(start) {    
     let secondsToCount = start * 60; 
@@ -430,9 +565,6 @@ function moveAfterStart(selectedPiece, targetSquare){
     console.log(targetEl)
     if(targetSquare === 'c0r3' || targetSquare === 'c1r3' || targetSquare === 'c5r3' || targetSquare === 'c6r3'){
         subMsg.innerText = 'You cannot move into the water';
-        // setTimeout(function(msg){
-        //     popup thing here
-        // })
         return false;
     }else if(targetSquare ===  'clickContainer' || targetSquare === 'pieceHolder' || targetSquare === 'gameBoard'){
         subMsg.innerText = 'You must move the piece inside the board';   
@@ -441,19 +573,13 @@ function moveAfterStart(selectedPiece, targetSquare){
         subMsg.innerText = 'cannot move a bomb of flag once placed';   
         return false;
     }else{
-
-        // document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild)
-
         const colIdx = targetSquare[1];
         const rowIdx = targetSquare[3];
         const fromCol = clickedElParent.id[1]
         const fromRow = clickedElParent.id[3]
         console.log(colIdx, rowIdx)
         console.log(fromRow, fromCol)
-        // if(targetSquare === rowIdx +1 || targetSquare === rowIdx -1
-        //     || targetSquare === colIdx +1 || targetSquare === colIdx -1){
                 if(!boardEl[rowIdx][colIdx]){
-                    // if(selected piece square is +- 1 row || =- 1column)
                     move(selectedPiece, targetSquare);
                     clearHighlight();
                     clickedEl = null;
@@ -498,11 +624,7 @@ function moveAfterStart(selectedPiece, targetSquare){
                             return true;  
                 }else if(currentPlayer === p1Name && boardEl[rowIdx][colIdx] === 14){
                             alert('You captured your opponents flag, you win!');
-                            document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild);
-                            move(selectedPiece, targetSquare);
-                                    clearHighlight();
-                                    return true;
-                            //win function           
+                            win(); 
                 }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) && 
                         boardEl[rowIdx][colIdx] === 11 || boardEl[rowIdx][colIdx] === 12
                         || boardEl[rowIdx][colIdx] === 13 || boardEl[rowIdx][colIdx] === 14){
@@ -543,19 +665,14 @@ function moveAfterStart(selectedPiece, targetSquare){
                             return true;         
                 }else if(currentPlayer === p2Name && boardEl[rowIdx][colIdx] === 4){
                             alert('You captured your opponents flag, you win!');
-                            clearHighlight();
-                            return true;
-                            //win function 
+                            win();
                 }  
          } 
 };
 
-
-const startGame = document.querySelector("#start");
+// - - - - Event Listeners - - - - //
 startGame.addEventListener('click', init);
-const rulesBtnEl = document.querySelector("#rulesBtn");
 rulesBtnEl.addEventListener('click', rulesRend);
-const closeRulesEl = document.querySelector("#close")
 closeRulesEl.addEventListener('click', closeRules)
 reset.addEventListener('click', confirmReset);
 
@@ -643,10 +760,3 @@ document.querySelector("#clickContainer").addEventListener('click', function(e){
 
                 }
     });
-
-pieceArrayP1= ['p1M1', 'p1M2', 'p1M3', 'p1M4', 'p1M5', 'p1M6', 'p1M0', 'p1Bomb', 'p1Flag', 'p1Captain'];
-pieceArrayP2= ['p2M1', 'p2M2', 'p2M3', 'p2M4', 'p2M5', 'p2M6', 'p2M0', 'p2Bomb', 'p2Flag', 'p2Captain'];
-startArrayP1=['c1r0', 'c2r0','c3r0','c4r0','c5r0','c1r1','c2r1','c3r1','c4r1','c5r1']
-startArrayP2=['c1r5', 'c2r5','c3r5','c4r5','c5r5','c1r6','c2r6','c3r6','c4r6','c5r6']
-p1MajorArray= ['p1M1', 'p1M2', 'p1M3', 'p1M4', 'p1M5', 'p1M6', 'p1M0']
-p2MajorArray= ['p2M1', 'p2M2', 'p2M3', 'p2M4', 'p2M5', 'p2M6', 'p2M0']

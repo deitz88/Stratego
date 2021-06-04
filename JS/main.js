@@ -111,13 +111,11 @@ function resetGame(){
 
 // functions
 function canMove(selectedPiece, targetSquare){
-    console.log(selectedPiece, targetSquare)
-    console.log(clickedElParent)
+    console.log(targetSquare)
     const colIdx = targetSquare[1];
     const rowIdx = targetSquare[3];
     // const fromCol = clickedElParent.id[1]
     // const fromRow = clickedElParent.id[3]
-    console.log(colIdx, rowIdx)
     // console.log(fromRow, fromCol)
     if(!boardEl[rowIdx][colIdx]){
         // if(selected piece square is +- 1 row || =- 1column)
@@ -371,6 +369,7 @@ function move(char, space) {
 };
  
 function moveAfterStart(selectedPiece, targetSquare){
+    console.log(targetEl)
     if(targetSquare === 'c0r3' || targetSquare === 'c1r3' || targetSquare === 'c5r3' || targetSquare === 'c6r3'){
         msgEl.innerText = 'You cannot move into the water';
         // setTimeout(function(msg){

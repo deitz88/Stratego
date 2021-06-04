@@ -24,9 +24,6 @@ This was the main game that he and i played growing up, as i was learning how to
 <img src="imgs/winner.png" width="450" height = "350">
 
 
-<h3>Reset</h3>
-<img src="imgs/reset.png" width="450" height = "350">
-
 </br>
 </br>
 <h2>Wireframe</h2>

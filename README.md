@@ -16,7 +16,7 @@ This was the main game that he and i played growing up, as i was learning how to
 
   
 <h3>Gameplay</h3>
- <img src=imgs/gameplay.png width="450" height = "350">
+ <img src="imgs/gameplay.png" width="450" height = "350">
 
   
    

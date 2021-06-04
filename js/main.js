@@ -404,6 +404,8 @@ function moveAfterStart(selectedPiece, targetSquare){
                             return false;
                 }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) 
                         && p1MajorArray.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 11){
+                            console.log(targetEl)
+                            console.log(challengeSquare)
                             clickedElParent.removeChild(clickedEl);
                             targetElParent.removeChild(targetSquare.firstElementChild)
                             clearHighlight();

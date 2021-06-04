@@ -44,7 +44,7 @@ Try out here: <a href="https://deitz88.github.io/Stratego/" rel="nofollow">Strat
 <ol>
  <li>Each player starts with:
   <ul>
-   <li>1 Flag> - protect yours, and capture your opponents!<li>
+   <li>1 Flag - protect yours, and capture your opponents!<li>
         <ul><li>Cannot be moved once placed and gameplay starts</li></ul>
    <li>1 Bomb</li>
    <ul><li>Bombs also cannot be moved once placed</li></ul>
@@ -69,7 +69,10 @@ Try out here: <a href="https://deitz88.github.io/Stratego/" rel="nofollow">Strat
  <h2>Next Steps</h2>
  Given more time and knowledge on this project, i would like to:
  <ol></br>
-  <li>Create options for different colors of pieces and game boards during start section of the game</li>
+<li>Added move logic to be only able to move one square at a time per player</li>
+<li>Add a place where "dead" pieces go wiht their rank, so that each player may know what pieces are left</li>
+<li>Add a pop-up display for battle outcomes, and change player rather than alert</li>
+<li>Create options for different colors of pieces and game boards during start section of the game</li>
  <li>Add a simplistic AI for player VS computer play</li>
  <li>Enlarge the gameboard, and add the full spectrum of pieces and abilities
        <ul>

@@ -1,4 +1,4 @@
-/* button's */
+
  button {
      position: absolute;
      display: inline;
@@ -155,6 +155,16 @@ p {
         border-radius: 5px 5px 5px 5px;
         grid-area: p1;
     }
+    /* .takenPieces{
+        background-image: linear-gradient(to top left, #9ba37b, hsla(92, 18%, 45%, 0.514));
+        border: 4px solid black;
+        display: none;
+        grid-template-columns: repeat(5, minmax(10px, 75px));
+        grid-template-rows: repeat(3, 1fr);
+        box-shadow: 15px 10px hsla(0, 0%, 33%, 0.4);
+        border-radius: 5px 5px 5px 5px;
+        grid-area: p1;
+    } */
         .p1Major {
             height: 60%;
             width: 60%;
@@ -164,6 +174,10 @@ p {
             margin: 10px;
             border: 2px solid black;
             box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+            text-align: center;
+            justify-items: center;
+            font-weight: bold;
+            font-size: 20px;
         }
         #p1Captain {
             height: 60%;
@@ -174,6 +188,10 @@ p {
             margin: 10px;
             border: 2px solid black;
             box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+            text-align: center;
+            justify-items: center;
+            font-weight: bold;
+            font-size: 20px;
         }
         #p1Flag {
             height: 60%;
@@ -184,6 +202,10 @@ p {
             margin: 10px;
             border: 2px solid black;
             box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+            text-align: center;
+            justify-items: center;
+            font-weight: bold;
+            font-size: 20px;
         }
         #p1Bomb {
             height: 60%;
@@ -194,6 +216,10 @@ p {
             margin: 10px;
             border: 2px solid black;
             box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+            text-align: center;
+            justify-items: center;
+            font-weight: bold;
+            font-size: 20px;
         }
     .p2Container {
         background-image: linear-gradient(to top right, #9ba37b, hsla(92, 18%, 45%, 0.514));
@@ -214,6 +240,10 @@ p {
         margin: 10px;
         border: 2px solid black;
         box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+        text-align: center;
+        justify-items: center;
+        font-weight: bold;
+        font-size: 20px;
     }
     #p2Captain {
         height: 60%;
@@ -224,6 +254,10 @@ p {
         margin: 10px;
         border: 2px solid black;
         box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+        text-align: center;
+        justify-items: center;
+        font-weight: bold;
+        font-size: 20px;
     }
     #p2Flag {
         height: 60%;
@@ -234,6 +268,10 @@ p {
         margin: 10px;
         border: 2px solid black;
         box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
+        text-align: center;
+        justify-items: center;
+        font-weight: bold;
+        font-size: 20px;
     }
     #p2Bomb {
         height: 60%;
@@ -244,7 +282,10 @@ p {
         margin: 10px;
         border: 2px solid black;
         box-shadow: 5px 10px hsla(0, 0%, 33%, 0.4);
-        
+        text-align: center;
+        justify-items: center;
+        font-weight: bold;
+        font-size: 20px;
     }
 
 /* GAMEBOARD DESIGN */

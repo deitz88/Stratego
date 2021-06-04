@@ -23,9 +23,12 @@ const p1Name = document.querySelector("#pieceHolder > h3.p1Header");
 const p2Name = document.querySelector("#pieceHolder > h3.p2Header");
 const rules = document.querySelector("#rules");
 const reset = document.querySelector("#reset");
+const taken = document.querySelector(".takenPieces");
 
 let startArrayP1=['c1r0', 'c2r0','c3r0','c4r0','c5r0','c1r1','c2r1','c3r1','c4r1','c5r1'];
 let startArrayP2=['c1r5', 'c2r5','c3r5','c4r5','c5r5','c1r6','c2r6','c3r6','c4r6','c5r6'];
+let p1Cap = ['p1Captain']
+let p2Cap = ['p2Captain']
 
 
 let clickedEl = null;
@@ -92,6 +95,62 @@ function updateBoard(){
     }
 }
 
+function p1Hide(){
+document.querySelector('#p1M0').innerText = '?';
+document.querySelector('#p1M1').innerText = '?';
+document.querySelector('#p1M2').innerText = '?';
+document.querySelector('#p1M3').innerText = '?';
+document.querySelector('#p1M4').innerText = '?';
+document.querySelector('#p1M5').innerText = '?';
+document.querySelector('#p1M6').innerText = '?';
+document.querySelector('#p1Captain').innerText = '?';
+document.querySelector('#p1Bomb').innerText = '?';
+document.querySelector('#p1Flag').innerText = '?';
+}
+
+
+function p2Hide(){
+document.querySelector('#p2M0').innerText = '?';
+document.querySelector('#p2M1').innerText = '?';
+document.querySelector('#p2M2').innerText = '?';
+document.querySelector('#p2M3').innerText = '?';
+document.querySelector('#p2M4').innerText = '?';
+document.querySelector('#p2M5').innerText = '?';
+document.querySelector('#p2M6').innerText = '?';
+document.querySelector('#p2Captain').innerText = '?';
+document.querySelector('#p2Bomb').innerText = '?';
+document.querySelector('#p2Flag').innerText = '?';
+}
+
+
+function p1Show(){
+    document.querySelector('#p1M0').innerText = 'M';
+    document.querySelector('#p1M1').innerText = 'M';
+    document.querySelector('#p1M2').innerText = 'M';
+    document.querySelector('#p1M3').innerText = 'M';
+    document.querySelector('#p1M4').innerText = 'M';
+    document.querySelector('#p1M5').innerText = 'M';
+    document.querySelector('#p1M6').innerText = 'M';
+    document.querySelector('#p1Captain').innerText = 'C';
+    document.querySelector('#p1Bomb').innerText = 'B';
+    document.querySelector('#p1Flag').innerText = 'F';
+    p2Hide();
+    }
+
+
+function p2Show(){
+    document.querySelector('#p2M0').innerText = 'M';
+    document.querySelector('#p2M1').innerText = 'M';
+    document.querySelector('#p2M2').innerText = 'M';
+    document.querySelector('#p2M3').innerText = 'M';
+    document.querySelector('#p2M4').innerText = 'M';
+    document.querySelector('#p2M5').innerText = 'M';
+    document.querySelector('#p2M6').innerText = 'M';
+    document.querySelector('#p2Captain').innerText = 'C';
+    document.querySelector('#p2Bomb').innerText = 'B';
+    document.querySelector('#p2Flag').innerText = 'F';
+    p1Hide();
+    }
 // if target square is +-1 row || +-1 column, && space currently is ===0, can move
 // else if target square is +-1 row && +-1 column && value is one of your pieces - no move
 // else if target square is +-1 row && +-1 column && value enemy piece, compare
@@ -148,7 +207,7 @@ function canMove(selectedPiece, targetSquare){
 }
 }
 function playerOneSetup(){
-    // countdown(2);
+    countdown(2);
     currentPlayer = p1Name;
     notPlayer = p2Name;
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
@@ -165,6 +224,7 @@ function clearHighlight(){
 function playerTwoSetup(){
     stopCountdown();
     countdown(2);
+    // p2Show();
     currentPlayer = p2Name;
     notPlayer = p1Name;
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText 
@@ -178,14 +238,17 @@ function init(){
     playerTwoStart();
     playerOneSetup();
     currentPlayer = p1Name;
+    // p1Show();
 }
 function changePlayer() {
     if (currentPlayer === p1Name) {
       currentPlayer = p2Name;
       notPlayer = p1Name;
+    //   p2Show();
     } else {
       currentPlayer = p1Name;
       notPlayer = p2Name;
+    //   p1Show();
     }
     msgEl.innerText = ("Current Player is: " + currentPlayer.innerText
                      + ' . you have 45 seconds to make a move');
@@ -261,6 +324,7 @@ function styleGame(){
     rules.style.display = 'none';
     rulesBtn.style.display = 'inline';
     reset.style.display = 'table';
+    // taken.style.display = 'grid';
 };
 function rulesRend(){
     p1Cont.style.display = 'none';
@@ -274,6 +338,7 @@ function rulesRend(){
     p2Name.style.display = "none";
     closeRulesEl.style.display = 'inline-block';
     reset.style.display = 'none';
+    // taken.style.display = 'none';
 };
 function closeRules() {
     p1Cont.style.display = 'grid';
@@ -286,19 +351,11 @@ function closeRules() {
     p1Name.style.display = 'table';
     p2Name.style.display = 'table';
     reset.style.display = 'table';
+    // taken.style.display = 'grid';
+
 }
 function resetPieces(){
-    // for(i=0; i<boardTiles.length; i++){
-    //     boardObj.removeChild(document.querySelector('.p1Major'));
-    //     boardObj.removeChild(document.querySelector('#p1Flag'));
-    //     boardObj.removeChild(document.querySelector('#p1Bomb'));
-    //     boardObj.removeChild(document.querySelector('#p1Captain'));
-    //     boardObj.removeChild(document.querySelector('.p2Major'));
-    //     boardObj.removeChild(document.querySelector('#p2Flag'));
-    //     boardObj.removeChild(document.querySelector('#p2Bomb'));
-    //     boardObj.removeChild(document.querySelector('#p2Captain'));
-    // }
-    
+
     p1Cont.appendChild(createP1Bomb);
     p1Cont.appendChild(createP1Flag);
     p1Cont.appendChild(createP1Captain);
@@ -383,6 +440,9 @@ function moveAfterStart(selectedPiece, targetSquare){
         msgEl.innerText = 'cannot move a bomb of flag once placed';   
         return false;
     }else{
+
+        // document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild)
+
         const colIdx = targetSquare[1];
         const rowIdx = targetSquare[3];
         const fromCol = clickedElParent.id[1]
@@ -403,14 +463,32 @@ function moveAfterStart(selectedPiece, targetSquare){
                             msgEl.innerText = 'cannot move to your same pieces square';
                             return false;
                 }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) 
-                        && p1MajorArray.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 11){
-                            console.log(targetEl)
-                            console.log(challengeSquare)
+                        && p1MajorArray.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 12){
                             clickedElParent.removeChild(clickedEl);
-                            targetElParent.removeChild(targetSquare.firstElementChild)
+                            clearHighlight();
+                            alert('ooo not a nice guy');
+                            return true;
+                }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) 
+                        && p1MajorArray.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 11){
+                            clickedElParent.removeChild(clickedEl);
+                            document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild)
                             clearHighlight();
                             alert('Same piece');
-                            return true;  
+                            return true;
+                }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) 
+                        && p1Cap.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 12){
+                            clickedElParent.removeChild(clickedEl);
+                            document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild)
+                            clearHighlight();
+                            alert('Same piece');
+                            return true; 
+                }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) 
+                        && p1Cap.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 11){
+                            document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild)
+                            move(selectedPiece, targetSquare);
+                            clearHighlight();
+                            alert('You got his piece!');
+                            return true;             
                 }else if(currentPlayer === p1Name && pieceArrayP1.includes(selectedPiece) && 
                         boardEl[rowIdx][colIdx] === 13){// add in 3 for bomb
                             clickedElParent.removeChild(clickedEl);
@@ -418,16 +496,44 @@ function moveAfterStart(selectedPiece, targetSquare){
                             alert('you hit a bomb!');
                             return true;  
                 }else if(currentPlayer === p1Name && boardEl[rowIdx][colIdx] === 14){
-                    alert('You captured your opponents flag, you win!');
-                            clickedEl = null;
-                            clearHighlight();
-                            return true;
+                            alert('You captured your opponents flag, you win!');
+                            document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild);
+                            move(selectedPiece, targetSquare);
+                                    clearHighlight();
+                                    return true;
                             //win function           
                 }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) && 
                         boardEl[rowIdx][colIdx] === 11 || boardEl[rowIdx][colIdx] === 12
                         || boardEl[rowIdx][colIdx] === 13 || boardEl[rowIdx][colIdx] === 14){
                             msgEl.innerText = 'cannot move to your same pieces square';
                             return false;
+                }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) 
+                        && p2MajorArray.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 2){
+                            clickedElParent.removeChild(clickedEl);
+                            clearHighlight();
+                            alert('ooo not a nice guy');
+                            return true;
+                }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) 
+                        && p2MajorArray.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 1){
+                            clickedElParent.removeChild(clickedEl);
+                            document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild)
+                            clearHighlight();
+                            alert('Same piece');
+                            return true;
+                }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) 
+                        && p2Cap.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 2){
+                            clickedElParent.removeChild(clickedEl);
+                            document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild)
+                            clearHighlight();
+                            alert('Same piece');
+                            return true; 
+                }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) 
+                        && p2Cap.includes(selectedPiece) && boardEl[rowIdx][colIdx] === 1){
+                            document.getElementById(targetEl).removeChild(document.getElementById(targetEl).firstChild)
+                            move(selectedPiece, targetSquare);
+                            clearHighlight();
+                            alert('You got his piece!');
+                            return true;
                 }else if(currentPlayer === p2Name && pieceArrayP2.includes(selectedPiece) && 
                         boardEl[rowIdx][colIdx] === 3){// add in 3 for bomb
                             clickedElParent.removeChild(clickedEl);

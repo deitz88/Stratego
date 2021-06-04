@@ -21,7 +21,7 @@ This was the main game that he and i played growing up, as i was learning how to
   
    
 <h3>Winner message</h3>
-<img src="iimgs/winner.png" width="450" height = "350">
+<img src="imgs/winner.png" width="450" height = "350">
 
 
 <h3>Reset</h3>

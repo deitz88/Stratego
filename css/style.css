@@ -123,6 +123,17 @@ h2 {
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.774);
 }
+.subMsg{
+    font-family: 'Lobster', cursive, 'sans-serif';
+    font-size: 22px;
+    text-align: center;
+    background-size: 4px 50%;
+    display: none;
+    margin: 15px auto 10px auto;
+    padding: 2px 10px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.774);
+}
 #countdown {
     font-size: 25px;
     color: rgba(134, 24, 24, 0.8);

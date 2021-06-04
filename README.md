@@ -38,7 +38,7 @@ This was the main game that he and i played growing up, as i was learning how to
 ![Web 1920 – 5](https://user-images.githubusercontent.com/16360065/120261161-2b054200-c24c-11eb-891c-8640b10112e3.png)
 
 <h2>Getting Started</h2>
-Try out here: <a href="https://github.com/deitz88/Stratego" rel="nofollow">Stratego!</a>
+Try out here: <a href="https://deitz88.github.io/Stratego/" rel="nofollow">Stratego!: Lite</a>
 <h2>Technologies Used</h2>
 <ul>
  <li>Javscript</li>

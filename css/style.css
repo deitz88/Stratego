@@ -399,7 +399,7 @@ p {
         border-radius: 3px 3px 3px 3px;
     }
 body{
-    background-image: url(imgs/background.jpg);
+    background-image: url(../imgs/background.jpg);
     background-size: cover;
     display: grid;
     grid-template-areas: 
